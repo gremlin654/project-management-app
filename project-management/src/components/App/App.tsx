@@ -4,7 +4,7 @@ import { Main } from 'pages/Main/Main';
 import { NotFoundPage } from 'pages/NotFoundPage/NotFoundPage';
 import React from 'react';
 import { Route, Routes } from 'react-router';
-import { PATH__ROUTES } from 'utils/constants';
+import { PATH__ROUTES } from 'utils/path_routes';
 import './App.scss';
 
 function App() {

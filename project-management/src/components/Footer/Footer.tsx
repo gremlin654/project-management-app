@@ -11,10 +11,18 @@ export const Footer = () => {
           <p>© 2022 RSLang</p>
         </div>
         <div className='footer__gitHub'>
-          <Git fill='#6c63ff' />
-          <a href='https://github.com/yuliaN145'>YuliaN145</a>
-          <a href='https://github.com/gremlin654'>gremlin654</a>
-          <a href='https://github.com/diffickmenlogo'>diffickmenlogo</a>
+          <a href='https://github.com/yuliaN145'>
+            <Git fill='#6c63ff' width='3rem' height='3rem' />
+            <span>YuliaN145</span>
+          </a>
+          <a href='https://github.com/gremlin654'>
+            <Git fill='#6c63ff' width='3rem' height='3rem' />
+            <span>gremlin654</span>
+          </a>
+          <a href='https://github.com/diffickmenlogo'>
+            <Git fill='#6c63ff' width='3rem' height='3rem' />
+            <span>diffickmenlogo</span>
+          </a>
         </div>
         <a href='https://rs.school/js/'>
           <RSlogo width='100px' fill='#6c63ff' />

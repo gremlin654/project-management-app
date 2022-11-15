@@ -1,13 +1,16 @@
+import React from 'react';
+import './Header.scss';
 import { Box, Button } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import ViewKanbanOutlinedIcon from '@mui/icons-material/ViewKanbanOutlined';
-import React from 'react';
 import { useState } from 'react';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import './Header.scss';
+import { PATH__ROUTES } from 'utils/path_routes';
+import { Link } from 'react-router-dom';
+import useScrollTrigger from '@mui/material/useScrollTrigger';
 
 const logoStyle = {
   mr: 'auto',
@@ -66,10 +69,18 @@ export const Header = () => {
     setAlignment(newAlignment);
   };
 
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 0,
+  });
+
   return (
-    <AppBar position='sticky' sx={{ backgroundColor: 'rgb(129, 212, 250)' }}>
+    <AppBar
+      position='sticky'
+      sx={{ backgroundColor: trigger ? 'rgb(129, 212, 250)' : 'transparent' }}
+    >
       <Toolbar>
-        <Typography variant='h6' noWrap component='a' href='#' sx={logoStyle}>
+        <Typography variant='h6' noWrap component={Link} to={PATH__ROUTES.MAIN} sx={logoStyle}>
           <ViewKanbanOutlinedIcon sx={logoIconStyle} />
           <Typography variant='h6' component='span' sx={logoTextStyle}>
             PMApp

@@ -1,0 +1,48 @@
+.member {
+  &__container {
+    display: flex;
+    flex-direction: column;
+    border: 0.1rem solid;
+    border-radius: 0.4rem;
+    overflow: hidden;
+    box-shadow: -2px 5px 40px rgb(129 212 250 / 51%);
+    background-color: #81d4fa0a;
+    transition: all 0.3s;
+    &:hover {
+      transition: all 0.3s;
+      box-shadow: -2px 5px 40px rgb(129 212 250);
+    }
+    @media (max-width: 767px) {
+      flex-direction: row;
+    }
+  }
+  &__avatar {
+    & img {
+      width: 18rem;
+    }
+  }
+  &__about-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 1rem;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  &__name {
+    font-family: 'Circular-Medium';
+    font-size: 1.8rem;
+  }
+  &__major {
+    font-family: 'Circular-Book';
+    font-size: 1.7rem;
+  }
+  &__github {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: #ffffff;
+    font-family: 'Circular-Book';
+    font-size: 1.7rem;
+  }
+}

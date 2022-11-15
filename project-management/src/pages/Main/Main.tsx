@@ -1,6 +1,8 @@
-import Button from '@mui/material/Button';
 import React from 'react';
+import Button from '@mui/material/Button';
+import { TeamMember } from 'components/TeamMember/TeamMember';
 import './Main.scss';
+import { teamMembers } from 'utils/member_team';
 
 export const Main = () => {
   return (
@@ -30,6 +32,21 @@ export const Main = () => {
           </Button>
         </div>
         <div className='first-block__image'></div>
+      </section>
+      <section className='team-block__container'>
+        <h3 className='team-block__title'>Our team</h3>
+        <div className='team-block__team-container'>
+          {teamMembers.map((member) => (
+            <TeamMember
+              name={member.name}
+              major={member.major}
+              github={member.github}
+              avatar={member.avatar}
+              avatarWebP={member.avatarWebP}
+              key={member.name}
+            />
+          ))}
+        </div>
       </section>
     </main>
   );
