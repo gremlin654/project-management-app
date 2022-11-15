@@ -69,7 +69,7 @@ export const Header = () => {
   return (
     <AppBar position='sticky' sx={{ backgroundColor: 'rgb(129, 212, 250)' }}>
       <Toolbar>
-        <Typography variant='h6' noWrap component='a' href='#' sx={logoStyle}>
+        <Typography variant='h6' noWrap component='a' href='/' sx={logoStyle}>
           <ViewKanbanOutlinedIcon sx={logoIconStyle} />
           <Typography variant='h6' component='span' sx={logoTextStyle}>
             PMApp
@@ -99,6 +99,7 @@ export const Header = () => {
               color: '#000000',
               '&:hover': { backgroundColor: '#ffffcc' },
             }}
+            onClick={() => location.assign('/login')}
           >
             Sign In
           </Button>
@@ -109,6 +110,7 @@ export const Header = () => {
               backgroundColor: '#6c63ff',
               '&:hover': { backgroundColor: '#9f9af1' },
             }}
+            onClick={() => location.assign('/registration')}
           >
             Sign Up
           </Button>
