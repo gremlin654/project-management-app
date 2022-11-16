@@ -5,12 +5,12 @@
     border: 0.1rem solid;
     border-radius: 0.4rem;
     overflow: hidden;
-    box-shadow: -2px 5px 40px rgb(129 212 250 / 51%);
+    box-shadow: -2px 5px 40px rgb(255 255 165 / 51%);
     background-color: #81d4fa0a;
     transition: all 0.3s;
     &:hover {
       transition: all 0.3s;
-      box-shadow: -2px 5px 40px rgb(129 212 250);
+      box-shadow: -2px 5px 40px rgb(255 255 165);
     }
     @media (max-width: 767px) {
       flex-direction: row;

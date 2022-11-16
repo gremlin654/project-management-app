@@ -100,10 +100,13 @@ h6 {
   font-style: normal;
 }
 
+body {
+  background: linear-gradient(to right, rgb(25, 166, 184), rgb(237, 202, 209));
+}
 #root {
   display: flex;
   flex-direction: column;
   max-width: 1920px;
   margin: 0 auto;
-  background: linear-gradient(to right, rgb(25, 166, 184), rgb(237, 202, 209));
+  height: 100%;
 }
