@@ -1,6 +1,5 @@
 import React from 'react';
-import './Header.scss';
-import { Box, Button } from '@mui/material';
+import { Alert, AlertTitle, Box, Button } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -11,6 +10,8 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { PATH__ROUTES } from 'utils/path_routes';
 import { Link } from 'react-router-dom';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
+import './Header.scss';
+import { useAppSelector } from 'hooks/redux';
 
 const logoStyle = {
   mr: 'auto',
@@ -63,6 +64,8 @@ const loginBtnStyle = {
 };
 
 export const Header = () => {
+  const { successful, unsuccessful, message } = useAppSelector((state) => state.notifications);
+
   const [alignment, setAlignment] = useState('web');
 
   const handleChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string) => {
@@ -79,6 +82,19 @@ export const Header = () => {
       position='sticky'
       sx={{ backgroundColor: trigger ? 'rgb(129, 212, 250)' : 'transparent' }}
     >
+      {unsuccessful && (
+        <Alert severity='error' className='registration__error'>
+          <AlertTitle className='registration__error__title'>Error</AlertTitle>
+          {message}
+          <strong> check it out!</strong>
+        </Alert>
+      )}
+      {successful && (
+        <Alert severity='success' className='registration__success'>
+          <AlertTitle>Success</AlertTitle>
+          {message} — <strong>check it out!</strong>
+        </Alert>
+      )}
       <Toolbar>
         <Typography variant='h6' noWrap component={Link} to={PATH__ROUTES.MAIN} sx={logoStyle}>
           <ViewKanbanOutlinedIcon sx={logoIconStyle} />
@@ -110,6 +126,7 @@ export const Header = () => {
               color: '#000000',
               '&:hover': { backgroundColor: '#ffffcc' },
             }}
+            onClick={() => location.assign('/login')}
           >
             Sign In
           </Button>
@@ -120,6 +137,7 @@ export const Header = () => {
               backgroundColor: '#6c63ff',
               '&:hover': { backgroundColor: '#9f9af1' },
             }}
+            onClick={() => location.assign('/registration')}
           >
             Sign Up
           </Button>
