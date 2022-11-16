@@ -1,12 +1,18 @@
 import { useAppDispatch } from 'hooks/redux';
+import { IError } from 'models/assets';
 import React, { useState } from 'react';
 import { useLoginMutation } from 'store/actions/authAPi';
+import { notificationsSlice } from 'store/reducers/notifications';
 import { userSlice } from 'store/reducers/userSlice';
 import '../Registration/Registration.scss';
 export function Login() {
+  const { setUnsuccessful, setSuccessful, setMessage } = notificationsSlice.actions;
+
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
+
   const [loginIn] = useLoginMutation();
+
   const { setToken } = userSlice.actions;
   const dispatch = useAppDispatch();
 
@@ -29,10 +35,19 @@ export function Login() {
       const response = await loginIn({ login, password }).unwrap();
       localStorage.setItem('token', response.token);
       dispatch(setToken(response.token));
-      console.log('Login successful');
+      dispatch(setSuccessful(true));
+      dispatch(setMessage('Login successful'));
+      setTimeout(() => {
+        dispatch(setSuccessful(false));
+      }, 9000);
     } catch (error) {
-      //Check refresh token and get new token
-      console.log(error);
+      const currentError = error as IError;
+      dispatch(setUnsuccessful(true));
+      dispatch(setMessage(currentError.data.message || 'Something went wrong'));
+      setTimeout(() => {
+        dispatch(setUnsuccessful(false));
+        dispatch(setMessage(''));
+      }, 9000);
     }
   };
   return (
@@ -50,6 +65,7 @@ export function Login() {
               onChange={(e) => handleInputChange(e)}
             />
           </div>
+
           <div className='registration__form__input'>
             <input
               type='text'
