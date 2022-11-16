@@ -1,9 +1,49 @@
+@keyframes from-top {
+  0% {
+    opacity: 1;
+    display: block;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}
 .registration {
-  height: 80vh;
+  height: inherit;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  &__error {
+    display: block;
+    position: absolute;
+    width: 20%;
+    height: 8vh;
+    top: 10vh;
+    right: 1vw;
+    opacity: 1;
+    transition: 10s ease;
+    animation: from-top 10s ease;
+    font-size: 15px !important;
+    strong {
+      font-size: 15px;
+    }
+  }
+  &__success {
+    display: block;
+    position: absolute;
+    width: 20%;
+    height: 8vh;
+    top: 10vh;
+    right: 1vw;
+    opacity: 1;
+    transition: 10s ease;
+    animation: from-top 10s ease;
+    font-size: 15px !important;
+    strong {
+      font-size: 15px;
+    }
+  }
   &__form {
     border: 1px solid #e0e0e0;
     border-radius: 1rem;
@@ -33,6 +73,14 @@
       @media (max-width: 390px) {
         font-size: 1.5rem;
       }
+    }
+    &__error {
+      font-size: 15px;
+      color: red;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 10px;
     }
     &__input {
       width: 100%;
