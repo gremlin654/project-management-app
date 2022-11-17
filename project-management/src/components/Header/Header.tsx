@@ -11,7 +11,8 @@ import { PATH__ROUTES } from 'utils/path_routes';
 import { Link } from 'react-router-dom';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import './Header.scss';
-import { useAppSelector } from 'hooks/redux';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { userSlice } from 'store/reducers/userSlice';
 
 const logoStyle = {
   mr: 'auto',
@@ -66,12 +67,21 @@ const loginBtnStyle = {
 export const Header = () => {
   const { token } = useAppSelector((state) => state.user);
 
+  const { setToken } = userSlice.actions;
+  const dispatch = useAppDispatch();
+
   const { successful, unsuccessful, message } = useAppSelector((state) => state.notifications);
 
   const [alignment, setAlignment] = useState('web');
 
   const handleChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string) => {
     setAlignment(newAlignment);
+  };
+
+  const handleExit = () => {
+    localStorage.removeItem('token');
+    setToken('');
+    location.assign('/');
   };
 
   const trigger = useScrollTrigger({
@@ -119,33 +129,62 @@ export const Header = () => {
             RUS
           </ToggleButton>
         </ToggleButtonGroup>
-        <Box sx={loginContainerStyle}>
-          <Button
-            variant='contained'
-            sx={{
-              ...loginBtnStyle,
-              backgroundColor: '#ffffa5',
-              color: '#000000',
-              '&:hover': { backgroundColor: '#ffffcc' },
-            }}
-            component={Link}
-            to={PATH__ROUTES.LOGIN}
-          >
-            Sign In
-          </Button>
-          <Button
-            variant='contained'
-            component={Link}
-            to={PATH__ROUTES.REGISTRATION}
-            sx={{
-              ...loginBtnStyle,
-              backgroundColor: '#6c63ff',
-              '&:hover': { backgroundColor: '#9f9af1' },
-            }}
-          >
-            Sign Up
-          </Button>
-        </Box>
+        {token ? (
+          <Box sx={loginContainerStyle}>
+            <Button
+              variant='contained'
+              component={Link}
+              to={PATH__ROUTES.BOARDS}
+              sx={{
+                ...loginBtnStyle,
+                backgroundColor: '#6c63ff',
+                '&:hover': { backgroundColor: '#9f9af1' },
+              }}
+            >
+              Profile
+            </Button>
+            <Button
+              variant='contained'
+              sx={{
+                ...loginBtnStyle,
+                backgroundColor: '#ffffa5',
+                color: '#000000',
+                '&:hover': { backgroundColor: '#ffffcc' },
+              }}
+              onClick={() => handleExit()}
+            >
+              SignOut
+            </Button>
+          </Box>
+        ) : (
+          <Box sx={loginContainerStyle}>
+            <Button
+              variant='contained'
+              sx={{
+                ...loginBtnStyle,
+                backgroundColor: '#ffffa5',
+                color: '#000000',
+                '&:hover': { backgroundColor: '#ffffcc' },
+              }}
+              component={Link}
+              to={PATH__ROUTES.LOGIN}
+            >
+              Sign In
+            </Button>
+            <Button
+              variant='contained'
+              component={Link}
+              to={PATH__ROUTES.REGISTRATION}
+              sx={{
+                ...loginBtnStyle,
+                backgroundColor: '#6c63ff',
+                '&:hover': { backgroundColor: '#9f9af1' },
+              }}
+            >
+              Sign Up
+            </Button>
+          </Box>
+        )}
       </Toolbar>
     </AppBar>
   );

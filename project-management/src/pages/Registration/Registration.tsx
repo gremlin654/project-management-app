@@ -57,6 +57,7 @@ export function Registration() {
       setTimeout(() => {
         dispatch(setSuccessful(false));
       }, 9000);
+      location.assign('/profile');
     } catch (error) {
       const currentError = error as IError;
       dispatch(setUnsuccessful(true));

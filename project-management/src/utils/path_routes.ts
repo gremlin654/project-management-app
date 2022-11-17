@@ -3,4 +3,5 @@ export const PATH__ROUTES = {
   REGISTRATION: '/registration',
   LOGIN: '/login',
   NOT_FOUND: '*',
+  BOARDS: '/boards',
 };
