@@ -1,0 +1,41 @@
+.boards {
+    padding-left: 30px;
+    padding-right: 30px;
+    &__title {
+        font-size: 40px;
+        padding-left: 200px;
+    }
+}
+.board-container {
+    padding-left: 200px;
+    padding-right: 200px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+.board {
+    border: 1.5px solid rgba(18, 0, 97, 0.171);
+    border-radius: 11px;
+    //flex-basis: 400px;
+    width: 240px;
+    height: 180px;
+    background-color: rgba(18, 0, 97, 0.171);
+    padding-left: 25px;
+    padding-right: 25px;
+    &__title {
+        font-size: 25px;
+        color: aliceblue;
+        word-wrap: break-word;
+    }
+    &__description {
+        font-size: 20px;
+        color: rgb(193, 215, 235);
+        max-width: 188px;
+        word-wrap: break-word;
+    }
+}
+.board__trash {
+    position: relative;
+    right: -98%;
+    top: 10px;
+}

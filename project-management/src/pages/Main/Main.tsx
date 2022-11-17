@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import { TeamMember } from 'components/TeamMember/TeamMember';
 import './Main.scss';
 import { teamMembers } from 'utils/member_team';
+import { Link } from 'react-router-dom';
 
 export const Main = () => {
   return (
@@ -28,7 +29,7 @@ export const Main = () => {
               '&:hover': { backgroundColor: '#9f9af1' },
             }}
           >
-            GET STARTED
+            <Link to={'/Boards'}>GET STARTED</Link>
           </Button>
         </div>
         <div className='first-block__image'></div>
