@@ -64,6 +64,8 @@ const loginBtnStyle = {
 };
 
 export const Header = () => {
+  const { token } = useAppSelector((state) => state.user);
+
   const { successful, unsuccessful, message } = useAppSelector((state) => state.notifications);
 
   const [alignment, setAlignment] = useState('web');
@@ -126,18 +128,20 @@ export const Header = () => {
               color: '#000000',
               '&:hover': { backgroundColor: '#ffffcc' },
             }}
-            onClick={() => location.assign('/login')}
+            component={Link}
+            to={PATH__ROUTES.LOGIN}
           >
             Sign In
           </Button>
           <Button
             variant='contained'
+            component={Link}
+            to={PATH__ROUTES.REGISTRATION}
             sx={{
               ...loginBtnStyle,
               backgroundColor: '#6c63ff',
               '&:hover': { backgroundColor: '#9f9af1' },
             }}
-            onClick={() => location.assign('/registration')}
           >
             Sign Up
           </Button>

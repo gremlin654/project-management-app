@@ -77,6 +77,7 @@ export function Registration() {
           </div>
           <div className='registration__form__input'>
             <input
+              autoComplete='off'
               type='text'
               pattern='[A-Za-zА-Яа-яЁё]{2,100}'
               onInvalid={(e) => {
@@ -95,6 +96,7 @@ export function Registration() {
           </div>
           <div className='registration__form__input'>
             <input
+              autoComplete='off'
               type='text'
               pattern='[a-zA-Z0-9]{3,}'
               onInvalid={(e) => {
@@ -113,6 +115,7 @@ export function Registration() {
           </div>
           <div className='registration__form__input'>
             <input
+              autoComplete='off'
               type='text'
               pattern='[a-zA-Z0-9]{6,}'
               onInvalid={(e) => {

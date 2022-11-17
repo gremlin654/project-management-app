@@ -59,6 +59,7 @@ export function Login() {
           </div>
           <div className='registration__form__input'>
             <input
+              autoComplete='off'
               type='text'
               placeholder='Login'
               name='login'
@@ -68,6 +69,7 @@ export function Login() {
 
           <div className='registration__form__input'>
             <input
+              autoComplete='off'
               type='text'
               placeholder='Password'
               name='password'
