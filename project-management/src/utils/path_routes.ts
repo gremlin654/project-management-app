@@ -4,4 +4,5 @@ export const PATH__ROUTES = {
   LOGIN: '/login',
   NOT_FOUND: '*',
   BOARDS: '/boards',
+  PROFILE: '/profile',
 };

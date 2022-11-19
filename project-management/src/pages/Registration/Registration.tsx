@@ -42,6 +42,7 @@ export function Registration() {
       const response = await register({ name, login, password }).unwrap();
       const loginResponse = await loginIn({ login, password }).unwrap();
       localStorage.setItem('token', loginResponse.token);
+      localStorage.setItem('userId', response._id);
       const newUser = {
         name: response.name,
         login: response.login,

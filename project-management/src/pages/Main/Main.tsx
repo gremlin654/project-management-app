@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Button from '@mui/material/Button';
 import { TeamMember } from 'components/TeamMember/TeamMember';
 import './Main.scss';
 import { teamMembers } from 'utils/member_team';
 import { Link } from 'react-router-dom';
+import { useAppSelector } from 'hooks/redux';
+import { useGetUserByIdQuery } from 'store/actions/userApi';
 
 export const Main = () => {
+  const { id } = useAppSelector((state) => state.user);
+  const { isError } = useGetUserByIdQuery(id);
+  useEffect(() => {
+    if (isError) {
+      localStorage.removeItem('token');
+    }
+  }, [isError]);
   return (
     <main className='main'>
       <section className='first-block__container'>

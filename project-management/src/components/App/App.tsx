@@ -9,6 +9,7 @@ import { PATH__ROUTES } from 'utils/path_routes';
 import './App.scss';
 import { Login } from 'pages/Login/Login';
 import { Board } from 'pages/Board/Board';
+import { Profile } from 'pages/Profile/Profile';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path={PATH__ROUTES.LOGIN} element={<Login />} />
         <Route path={PATH__ROUTES.NOT_FOUND} element={<NotFoundPage />} />
         <Route path={PATH__ROUTES.BOARDS} element={<Board />} />
+        <Route path={PATH__ROUTES.PROFILE} element={<Profile />} />
       </Routes>
       <Footer />
     </div>
