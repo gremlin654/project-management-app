@@ -5,10 +5,12 @@ import './Main.scss';
 import { teamMembers } from 'utils/member_team';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from 'hooks/redux';
+import { PATH__ROUTES } from '../../utils/path_routes';
+
 import { useGetUserByIdQuery } from 'store/actions/userApi';
 
 export const Main = () => {
-  const { id } = useAppSelector((state) => state.user);
+  const { id, token } = useAppSelector((state) => state.user);
   const { isError } = useGetUserByIdQuery(id);
   useEffect(() => {
     if (isError) {
@@ -35,10 +37,19 @@ export const Main = () => {
               m: '2rem auto 0',
               fontSize: '2rem',
               backgroundColor: '#6c63ff',
+              padding: 0,
               '&:hover': { backgroundColor: '#9f9af1' },
             }}
           >
-            <Link to={'/Boards'}>GET STARTED</Link>
+            {token ? (
+              <Link to={PATH__ROUTES.BOARDS} className='first-block__button-link'>
+                Go to boards
+              </Link>
+            ) : (
+              <Link to={PATH__ROUTES.LOGIN} className='first-block__button-link'>
+                GET STARTED
+              </Link>
+            )}
           </Button>
         </div>
         <div className='first-block__image'></div>

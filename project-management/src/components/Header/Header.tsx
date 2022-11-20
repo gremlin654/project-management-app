@@ -13,6 +13,12 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 import './Header.scss';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { userSlice } from 'store/reducers/userSlice';
+import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
+import AppsIcon from '@mui/icons-material/Apps';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import LogoutIcon from '@mui/icons-material/Logout';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import LoginIcon from '@mui/icons-material/Login';
 
 const logoStyle = {
   mr: 'auto',
@@ -39,17 +45,23 @@ const logoTextStyle = {
 };
 
 const langContainerStyle = {
-  height: '4rem',
-  fontWeight: 600,
+  height: '3rem',
   mr: '2rem',
+  '@media (max-width: 648px)': {
+    height: '2.4rem',
+  },
 };
 
 const langBtnStyle = {
   fontSize: { xs: '0.8rem', md: '1rem' },
   fontWeight: 600,
-  padding: { xs: '0.5rem', md: '1.1rem' },
+  padding: 0,
+  width: '3rem',
   color: '#000000',
   '&.Mui-selected': { backgroundColor: 'rgb(108 99 255 / 51%)', color: '#ffffff' },
+  '@media (max-width: 648px)': {
+    width: '2.4rem',
+  },
 };
 
 const loginContainerStyle = {
@@ -61,7 +73,33 @@ const loginBtnStyle = {
   height: '4rem',
   fontWeight: 600,
   fontSize: { xs: '1.2rem', md: '1.4rem' },
-  padding: { xs: '0.6rem 0.1rem', md: '0.6rem 1.6rem' },
+  padding: { xs: '0.6rem 0.2rem', md: '0.6rem 1.6rem' },
+  gap: ' 0.5rem',
+  alignItems: 'center',
+  '@media (max-width: 648px)': {
+    padding: 0,
+    height: '3rem',
+    minWidth: '3rem',
+    background: 'transparent',
+    boxShadow: 'none',
+    '&:hover': {
+      backgroundColor: '#3f3d5629!important;',
+    },
+  },
+};
+
+const buttonTextSignUp = {
+  fontWeight: 600,
+  fontSize: '1.4rem',
+  '@media (max-width: 648px)': {
+    display: 'none',
+  },
+};
+
+const buttonIconStyle = {
+  width: '2rem',
+  height: '2rem',
+  '@media (max-width: 648px)': { width: '3rem', height: '3rem' },
 };
 
 export const Header = () => {
@@ -92,7 +130,10 @@ export const Header = () => {
   return (
     <AppBar
       position='sticky'
-      sx={{ backgroundColor: trigger ? 'rgb(129, 212, 250)' : 'transparent' }}
+      sx={{
+        transition: 'all 0.3s',
+        backgroundColor: trigger ? 'rgb(129, 212, 250)' : 'transparent',
+      }}
     >
       {unsuccessful && (
         <Alert severity='error' className='registration__error'>
@@ -141,7 +182,32 @@ export const Header = () => {
                 '&:hover': { backgroundColor: '#9f9af1' },
               }}
             >
-              Profile
+              <AppsIcon sx={buttonIconStyle} />
+              <Typography sx={buttonTextSignUp}>Boards</Typography>
+            </Button>
+            <Button
+              variant='contained'
+              sx={{
+                ...loginBtnStyle,
+                backgroundColor: '#6c63ff',
+                '&:hover': { backgroundColor: '#9f9af1' },
+              }}
+            >
+              <DashboardCustomizeIcon sx={buttonIconStyle} />
+              <Typography sx={buttonTextSignUp}>Add Board</Typography>
+            </Button>
+            <Button
+              variant='contained'
+              component={Link}
+              to={PATH__ROUTES.PROFILE}
+              sx={{
+                ...loginBtnStyle,
+                backgroundColor: '#6c63ff',
+                '&:hover': { backgroundColor: '#9f9af1' },
+              }}
+            >
+              <AccountBoxIcon sx={buttonIconStyle} />
+              <Typography sx={buttonTextSignUp}>Profile</Typography>
             </Button>
             <Button
               variant='contained'
@@ -153,7 +219,8 @@ export const Header = () => {
               }}
               onClick={() => handleExit()}
             >
-              SignOut
+              <LogoutIcon sx={buttonIconStyle} />
+              <Typography sx={buttonTextSignUp}>Sign Out</Typography>
             </Button>
           </Box>
         ) : (
@@ -169,7 +236,8 @@ export const Header = () => {
               component={Link}
               to={PATH__ROUTES.LOGIN}
             >
-              Sign In
+              <LoginIcon sx={buttonIconStyle} />
+              <Typography sx={buttonTextSignUp}>Sign In</Typography>
             </Button>
             <Button
               variant='contained'
@@ -181,7 +249,8 @@ export const Header = () => {
                 '&:hover': { backgroundColor: '#9f9af1' },
               }}
             >
-              Sign Up
+              <PersonAddIcon sx={buttonIconStyle} />
+              <Typography sx={buttonTextSignUp}>Sign Up</Typography>
             </Button>
           </Box>
         )}
