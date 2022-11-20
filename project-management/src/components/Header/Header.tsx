@@ -175,7 +175,7 @@ export const Header = () => {
             <Button
               variant='contained'
               component={Link}
-              to={PATH__ROUTES.BOARDS}
+              to={PATH__ROUTES.PROFILE}
               sx={{
                 ...loginBtnStyle,
                 backgroundColor: '#6c63ff',

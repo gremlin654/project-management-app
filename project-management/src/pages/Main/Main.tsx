@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Button from '@mui/material/Button';
 import { TeamMember } from 'components/TeamMember/TeamMember';
 import './Main.scss';
@@ -7,9 +7,16 @@ import { Link } from 'react-router-dom';
 import { useAppSelector } from 'hooks/redux';
 import { PATH__ROUTES } from '../../utils/path_routes';
 
-export const Main = () => {
-  const { token } = useAppSelector((store) => store.user);
+import { useGetUserByIdQuery } from 'store/actions/userApi';
 
+export const Main = () => {
+  const { id, token } = useAppSelector((state) => state.user);
+  const { isError } = useGetUserByIdQuery(id);
+  useEffect(() => {
+    if (isError) {
+      localStorage.removeItem('token');
+    }
+  }, [isError]);
   return (
     <main className='main'>
       <section className='first-block__container'>

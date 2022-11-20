@@ -1,7 +1,8 @@
-import { useAppDispatch } from 'hooks/redux';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { IError } from 'models/assets';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLoginMutation } from 'store/actions/authAPi';
+import { useGetUserByIdQuery } from 'store/actions/userApi';
 import { notificationsSlice } from 'store/reducers/notifications';
 import { userSlice } from 'store/reducers/userSlice';
 import '../Registration/Registration.scss';
