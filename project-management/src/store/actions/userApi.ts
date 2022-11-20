@@ -5,7 +5,14 @@ export const userApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'https://final-task-rest-production.up.railway.app' }),
   endpoints: (builder) => ({
     getAllUsers: builder.query({
-      query: () => '/users',
+      query: () => ({
+        url: '/users',
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          accept: 'application/json',
+        },
+      }),
     }),
     getUserById: builder.query({
       query: (id) => ({

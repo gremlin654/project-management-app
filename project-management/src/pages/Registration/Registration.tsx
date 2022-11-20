@@ -43,6 +43,7 @@ export function Registration() {
       const loginResponse = await loginIn({ login, password }).unwrap();
       localStorage.setItem('token', loginResponse.token);
       localStorage.setItem('userId', response._id);
+      localStorage.setItem('login', login);
       const newUser = {
         name: response.name,
         login: response.login,
@@ -58,7 +59,7 @@ export function Registration() {
       setTimeout(() => {
         dispatch(setSuccessful(false));
       }, 9000);
-      location.assign('/profile');
+      location.assign('/');
     } catch (error) {
       const currentError = error as IError;
       dispatch(setUnsuccessful(true));

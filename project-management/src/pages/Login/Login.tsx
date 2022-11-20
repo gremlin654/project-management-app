@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { IError } from 'models/assets';
 import React, { useEffect, useState } from 'react';
 import { useLoginMutation } from 'store/actions/authAPi';
-import { useGetUserByIdQuery } from 'store/actions/userApi';
+import { useGetAllUsersQuery, useGetUserByIdQuery } from 'store/actions/userApi';
 import { notificationsSlice } from 'store/reducers/notifications';
 import { userSlice } from 'store/reducers/userSlice';
 import '../Registration/Registration.scss';
@@ -13,6 +13,7 @@ export function Login() {
   const [password, setPassword] = useState('');
 
   const [loginIn] = useLoginMutation();
+  const { data: allUsers, isError: getAllErr } = useGetAllUsersQuery('');
 
   const { setToken } = userSlice.actions;
   const dispatch = useAppDispatch();
@@ -41,7 +42,13 @@ export function Login() {
       setTimeout(() => {
         dispatch(setSuccessful(false));
       }, 9000);
-      location.assign('/profile');
+      localStorage.setItem('login', login);
+      // localStorage.setItem(
+      //   'userId',
+      //   allUsers.find((user: { login: string; _id: string; name: string }) => user.login === login)
+      //     ._id,
+      // );
+      location.assign('/');
     } catch (error) {
       const currentError = error as IError;
       dispatch(setUnsuccessful(true));

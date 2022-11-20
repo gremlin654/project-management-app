@@ -4,19 +4,36 @@ import { TeamMember } from 'components/TeamMember/TeamMember';
 import './Main.scss';
 import { teamMembers } from 'utils/member_team';
 import { Link } from 'react-router-dom';
-import { useAppSelector } from 'hooks/redux';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { PATH__ROUTES } from '../../utils/path_routes';
 
-import { useGetUserByIdQuery } from 'store/actions/userApi';
+import { useGetAllUsersQuery, useGetUserByIdQuery } from 'store/actions/userApi';
+import { userSlice } from 'store/reducers/userSlice';
 
 export const Main = () => {
   const { id, token } = useAppSelector((state) => state.user);
   const { isError } = useGetUserByIdQuery(id);
+
+  const dispatch = useAppDispatch();
+  const { setId } = userSlice.actions;
+
+  const { data, isError: getAllErr, isLoading } = useGetAllUsersQuery('');
+
   useEffect(() => {
     if (isError) {
       localStorage.removeItem('token');
     }
-  }, [isError]);
+    if (!getAllErr && data) {
+      localStorage.setItem(
+        'userId',
+        data.find(
+          (item: { id: string; login: string; name: string }) =>
+            item.login == localStorage.getItem('login'),
+        )._id,
+      );
+      dispatch(setId(localStorage.getItem('userId')));
+    }
+  }, [isError, getAllErr, isLoading]);
   return (
     <main className='main'>
       <section className='first-block__container'>

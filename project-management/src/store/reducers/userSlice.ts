@@ -20,5 +20,8 @@ export const userSlice = createSlice({
     setToken: (state, action) => {
       state.token = action.payload;
     },
+    setId: (state, action) => {
+      state.id = action.payload;
+    },
   },
 });
