@@ -19,6 +19,7 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import LoginIcon from '@mui/icons-material/Login';
+import { boardsSlice } from 'store/reducers/boardsSlice';
 
 const logoStyle = {
   mr: 'auto',
@@ -104,13 +105,11 @@ const buttonIconStyle = {
 
 export const Header = () => {
   const { token } = useAppSelector((state) => state.user);
-
+  const { successful, unsuccessful, message } = useAppSelector((state) => state.notifications);
+  const { setAddBoardModal } = boardsSlice.actions;
   const { setToken } = userSlice.actions;
   const dispatch = useAppDispatch();
-
-  const { successful, unsuccessful, message } = useAppSelector((state) => state.notifications);
-
-  const [alignment, setAlignment] = useState('web');
+  const [alignment, setAlignment] = useState<string>('web');
 
   const handleChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string) => {
     setAlignment(newAlignment);
@@ -175,7 +174,7 @@ export const Header = () => {
             <Button
               variant='contained'
               component={Link}
-              to={PATH__ROUTES.PROFILE}
+              to={PATH__ROUTES.BOARDS}
               sx={{
                 ...loginBtnStyle,
                 backgroundColor: '#6c63ff',
@@ -192,6 +191,7 @@ export const Header = () => {
                 backgroundColor: '#6c63ff',
                 '&:hover': { backgroundColor: '#9f9af1' },
               }}
+              onClick={() => dispatch(setAddBoardModal(true))}
             >
               <DashboardCustomizeIcon sx={buttonIconStyle} />
               <Typography sx={buttonTextSignUp}>Add Board</Typography>

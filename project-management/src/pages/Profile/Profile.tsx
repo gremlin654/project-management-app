@@ -1,4 +1,5 @@
 import { Button, TextField } from '@mui/material';
+import { Spinner } from 'components/Spinner/Spinner';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { IError } from 'models/assets';
 import React, { useEffect, useState } from 'react';
@@ -171,9 +172,7 @@ export function Profile() {
         </div>
       </div>
       {loading ? (
-        <div className='box'>
-          <div className='spinner ease'></div>
-        </div>
+        <Spinner />
       ) : (
         <Button
           className='profile__btn'
