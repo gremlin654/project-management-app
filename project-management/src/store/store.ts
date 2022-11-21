@@ -3,12 +3,14 @@ import { authApi } from './actions/authAPi';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { userSlice } from './reducers/userSlice';
 import { userApi } from './actions/userApi';
+import { boardsSlice } from './reducers/boardsSlice';
 
 const rootReducer = combineReducers({
   [authApi.reducerPath]: authApi.reducer,
   [userApi.reducerPath]: userApi.reducer,
   user: userSlice.reducer,
   notifications: notificationsSlice.reducer,
+  boardsSlice: boardsSlice.reducer,
 });
 
 export const setupStore = () => {

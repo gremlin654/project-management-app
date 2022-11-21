@@ -10,8 +10,12 @@ import './App.scss';
 import { Login } from 'pages/Login/Login';
 import { Board } from 'pages/Board/Board';
 import { Profile } from 'pages/Profile/Profile';
+import { AddBoard } from 'components/AddBoard/AddBoard';
+import { useAppSelector } from 'hooks/redux';
 
 function App() {
+  const { addBoardModal } = useAppSelector((state) => state.boardsSlice);
+
   return (
     <div className='app'>
       <Header />
@@ -24,6 +28,7 @@ function App() {
         <Route path={PATH__ROUTES.PROFILE} element={<Profile />} />
       </Routes>
       <Footer />
+      {addBoardModal && <AddBoard />}
     </div>
   );
 }
