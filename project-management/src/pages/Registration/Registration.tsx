@@ -5,6 +5,8 @@ import { useRegisterMutation, useLoginMutation } from 'store/actions/authAPi';
 import { notificationsSlice } from 'store/reducers/notifications';
 import { userSlice } from 'store/reducers/userSlice';
 import './Registration.scss';
+import '../../utils/i18n';
+import { useTranslation } from 'react-i18next';
 
 export function Registration() {
   const { setUnsuccessful, setSuccessful, setMessage } = notificationsSlice.actions;
@@ -18,6 +20,8 @@ export function Registration() {
 
   const { setUser } = userSlice.actions;
   const dispatch = useAppDispatch();
+
+  const { t } = useTranslation();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -55,7 +59,7 @@ export function Registration() {
       setLogin('');
       setPassword('');
       dispatch(setSuccessful(true));
-      dispatch(setMessage('Registration successful'));
+      dispatch(setMessage(t('signUp.regSucces')));
       setTimeout(() => {
         dispatch(setSuccessful(false));
       }, 9000);
@@ -76,7 +80,7 @@ export function Registration() {
       <form action='' onSubmit={(e) => handleSubmit(e)}>
         <div className='registration__form'>
           <div className='registration__form__title'>
-            <h1>Registration</h1>
+            <h1>{t('signUp.title')}</h1>
           </div>
           <div className='registration__form__input'>
             <input
@@ -84,14 +88,12 @@ export function Registration() {
               type='text'
               pattern='[A-Za-zА-Яа-яЁё]{2,100}'
               onInvalid={(e) => {
-                e.currentTarget.setCustomValidity(
-                  'Name must contain only letters and be more than 2 characters',
-                );
+                e.currentTarget.setCustomValidity(t('signUp.valid1'));
               }}
               onInput={(e) => {
                 e.currentTarget.setCustomValidity('');
               }}
-              placeholder='Name'
+              placeholder={`${t('signUp.placeholder1')}`}
               name='name'
               value={name}
               onChange={(e) => handleInputChange(e)}
@@ -103,14 +105,12 @@ export function Registration() {
               type='text'
               pattern='[a-zA-Z0-9]{3,}'
               onInvalid={(e) => {
-                e.currentTarget.setCustomValidity(
-                  'Login must contain only letters and numbers and be more than 3 characters',
-                );
+                e.currentTarget.setCustomValidity(t('signUp.valid2'));
               }}
               onInput={(e) => {
                 e.currentTarget.setCustomValidity('');
               }}
-              placeholder='Login'
+              placeholder={`${t('signUp.placeholder2')}`}
               name='login'
               value={login}
               onChange={(e) => handleInputChange(e)}
@@ -122,20 +122,22 @@ export function Registration() {
               type='text'
               pattern='[a-zA-Z0-9]{6,}'
               onInvalid={(e) => {
-                e.currentTarget.setCustomValidity(
-                  'Password must contain only letters and numbers and be more than 6 characters',
-                );
+                e.currentTarget.setCustomValidity(t('signUp.valid3'));
               }}
               onInput={(e) => {
                 e.currentTarget.setCustomValidity('');
               }}
-              placeholder='Password'
+              placeholder={`${t('signUp.placeholder3')}`}
               name='password'
               value={password}
               onChange={(e) => handleInputChange(e)}
             />
           </div>
-          <input type='submit' className='registration__form__input__submit' value={'Submit'} />
+          <input
+            type='submit'
+            className='registration__form__input__submit'
+            value={`${t('signUp.regBtn')}`}
+          />
         </div>
       </form>
     </div>

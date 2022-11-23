@@ -3,7 +3,7 @@ import { Header } from 'components/Header/Header';
 import { Registration } from 'pages/Registration/Registration';
 import { Main } from 'pages/Main/Main';
 import { NotFoundPage } from 'pages/NotFoundPage/NotFoundPage';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Route, Routes } from 'react-router';
 import { PATH__ROUTES } from 'utils/path_routes';
 import './App.scss';
@@ -12,24 +12,27 @@ import { Board } from 'pages/Board/Board';
 import { Profile } from 'pages/Profile/Profile';
 import { AddBoard } from 'components/AddBoard/AddBoard';
 import { useAppSelector } from 'hooks/redux';
+import { Spinner } from 'components/Spinner/Spinner';
 
 function App() {
   const { addBoardModal } = useAppSelector((state) => state.boardsSlice);
 
   return (
-    <div className='app'>
-      <Header />
-      <Routes>
-        <Route path={PATH__ROUTES.MAIN} element={<Main />} />
-        <Route path={PATH__ROUTES.REGISTRATION} element={<Registration />} />
-        <Route path={PATH__ROUTES.LOGIN} element={<Login />} />
-        <Route path={PATH__ROUTES.NOT_FOUND} element={<NotFoundPage />} />
-        <Route path={PATH__ROUTES.BOARDS} element={<Board />} />
-        <Route path={PATH__ROUTES.PROFILE} element={<Profile />} />
-      </Routes>
-      <Footer />
-      {addBoardModal && <AddBoard />}
-    </div>
+    <Suspense fallback={<Spinner />}>
+      <div className='app'>
+        <Header />
+        <Routes>
+          <Route path={PATH__ROUTES.MAIN} element={<Main />} />
+          <Route path={PATH__ROUTES.REGISTRATION} element={<Registration />} />
+          <Route path={PATH__ROUTES.LOGIN} element={<Login />} />
+          <Route path={PATH__ROUTES.NOT_FOUND} element={<NotFoundPage />} />
+          <Route path={PATH__ROUTES.BOARDS} element={<Board />} />
+          <Route path={PATH__ROUTES.PROFILE} element={<Profile />} />
+        </Routes>
+        <Footer />
+        {addBoardModal && <AddBoard />}
+      </div>
+    </Suspense>
   );
 }
 

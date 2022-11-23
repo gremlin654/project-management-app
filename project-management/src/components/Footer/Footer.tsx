@@ -8,7 +8,7 @@ export const Footer = () => {
     <footer className='footer'>
       <div className='footer__container'>
         <div className='footer__year'>
-          <p>© 2022 RSLang</p>
+          <p>© 2022 PMApp</p>
         </div>
         <div className='footer__gitHub'>
           <a href='https://github.com/yuliaN145'>

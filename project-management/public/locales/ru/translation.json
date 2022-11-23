@@ -1,0 +1,86 @@
+{
+  "header": {
+    "langBtnEng": "АНГ",
+    "langBtnRU": "РУС",
+    "boardsBtn": "Доски",
+    "addBoardBtn": "Добавить доску",
+    "profileBtn": "Профиль",
+    "signInBtn": "Войти",
+    "signOutBtn": "Выход",
+    "signUpBtn": "Регистрация"
+  },
+  "welcome": {
+    "title": "Приложение для управления проектами",
+    "subTitle": "Рады представить вашему вниманию наше приложение PMApp. С его помощью вы сможете легко управлять своим проектом, быть в курсе всех задач и контролировать ход их выполнения.",
+    "subTitle2": "Начните с доски, списков и карточек. Управляйте проектами, организуйте задачи и развивайте командный дух.",
+    "subTitleBtnIn": "Перейти к доскам",
+    "subTitleBtnOut": "Начать",
+    "teamTitle": "Наша команда",
+    "teamCards": [
+      {
+        "avatar": "./assets/jpg/gremlin-180.jpg",
+        "avatarWebP": "./assets/webp/gremlin-180.webp",
+        "name": "Сидельников Андрей",
+        "major": "Front-end разработчик",
+        "github": "https://github.com/gremlin654"
+      },
+      {
+        "avatar": "./assets/jpg/diffick-180.jpg",
+        "avatarWebP": "./assets/webp/diffick-180.webp",
+        "name": "Фистик Илья",
+        "major": "Front-end разработчик",
+        "github": "https://github.com/diffickmenlogo"
+      },
+      {
+        "avatar": "./assets/jpg/yulia-180.jpg",
+        "avatarWebP": "./assets/webp/yulia-180.webp",
+        "name": "Наумчик Юлия",
+        "major": "Front-end разработчик",
+        "github": "https://github.com/yuliaN145"
+      }
+    ]
+  },
+  "addBoard": {
+    "title": "Создать доску",
+    "placeholder1": "Заголовок:",
+    "placeholder2": "Описание:",
+    "error1": "Пожалуйста, введите название доски",
+    "error2": "Пожалуйста, введите описание доски",
+    "createBtn": "Создать"
+  },
+  "page404": {
+    "title": "Ой! Страница не найдена!",
+    "text": "Извините, мы не можем найти запрошенную вами страницу. Возможно, вы неправильно ввели адрес.",
+    "homeBtn": "Домой"
+  },
+  "profile": {
+    "title": "Профиль",
+    "changeNameTitle": "Изменить имя",
+    "changeNameHelper": "Имя должно состоять только из букв и иметь длину не менее 3 символов",
+    "changeLoginTitle": "Изменить логин",
+    "changeLoginHelper": "Логин должен содержать только буквы и цифры и быть не менее 3-х символов",
+    "changePasswordTitle": "Изменить пароль",
+    "changePasswordHelper": "Пароль должен содержать только буквы и цифры и иметь длину не менее 6 символов",
+    "changeBtn": "Изменить",
+    "deleteBtn": "Удалить аккаунт"
+  },
+  "signIn": {
+    "title": "Авторизоваться",
+    "placeholder1": "Логин",
+    "placeholder2": "Пароль",
+    "submitSucses": "Успешный вход в систему",
+    "submitError": "Что-то пошло не так",
+    "submitBtn": "Войти"
+  },
+  "signUp": {
+    "title": "Регистрация",
+    "placeholder1": "Имя",
+    "valid1": "Имя должно содержать только буквы и быть более 2 символов",
+    "placeholder2": "Логин",
+    "valid2": "Логин должен содержать только буквы и цифры и быть более 3-х символов",
+    "placeholder3": "Пароль",
+    "valid3": "Пароль должен содержать только буквы и цифры и быть более 6 символов",
+    "regSucces": "Регистрация прошла успешно",
+    "regBtn": "Отправить"
+  }
+}

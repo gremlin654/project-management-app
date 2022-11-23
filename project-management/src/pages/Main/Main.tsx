@@ -2,21 +2,29 @@ import React, { useEffect } from 'react';
 import Button from '@mui/material/Button';
 import { TeamMember } from 'components/TeamMember/TeamMember';
 import './Main.scss';
-import { teamMembers } from 'utils/member_team';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { PATH__ROUTES } from '../../utils/path_routes';
-
 import { useGetAllUsersQuery, useGetUserByIdQuery } from 'store/actions/userApi';
 import { userSlice } from 'store/reducers/userSlice';
+import { useTranslation } from 'react-i18next';
+import '../../utils/i18n';
+
+export interface ITeamObj {
+  avatar: string;
+  avatarWebP: string;
+  name: string;
+  major: string;
+  github: string;
+}
 
 export const Main = () => {
   const { id, token } = useAppSelector((state) => state.user);
   const { isError } = useGetUserByIdQuery(id);
-
   const dispatch = useAppDispatch();
   const { setId } = userSlice.actions;
-
+  const { t } = useTranslation();
+  const teamObj = t<string, ITeamObj[]>('welcome.teamCards', { returnObjects: true });
   const { data, isError: getAllErr, isLoading } = useGetAllUsersQuery('');
 
   useEffect(() => {
@@ -38,16 +46,9 @@ export const Main = () => {
     <main className='main'>
       <section className='first-block__container'>
         <div className='first-block__text-container'>
-          <h1 className='first-block__title'>Project Management Application</h1>
-          <p className='first-block__text'>
-            We are glad to present to your attention our application PMApp. With it, you can easily
-            manage your project, be aware of all the tasks and control the progress of their
-            implementation.
-          </p>
-          <p className='first-block__text'>
-            Start with board, lists and cards. Manage projects, organize tasks, and build team
-            spirit.
-          </p>
+          <h1 className='first-block__title'>{t('welcome.title')}</h1>
+          <p className='first-block__text'>{t('welcome.subTitle')}</p>
+          <p className='first-block__text'>{t('welcome.subTitle2')}</p>
           <Button
             variant='contained'
             sx={{
@@ -60,11 +61,11 @@ export const Main = () => {
           >
             {token ? (
               <Link to={PATH__ROUTES.BOARDS} className='first-block__button-link'>
-                Go to boards
+                {t('welcome.subTitleBtnIn')}
               </Link>
             ) : (
               <Link to={PATH__ROUTES.LOGIN} className='first-block__button-link'>
-                GET STARTED
+                {t('welcome.subTitleBtnOut')}
               </Link>
             )}
           </Button>
@@ -72,9 +73,9 @@ export const Main = () => {
         <div className='first-block__image'></div>
       </section>
       <section className='team-block__container'>
-        <h3 className='team-block__title'>Our team</h3>
+        <h3 className='team-block__title'>{t('welcome.teamTitle')}</h3>
         <div className='team-block__team-container'>
-          {teamMembers.map((member) => (
+          {teamObj.map((member) => (
             <TeamMember
               name={member.name}
               major={member.major}
