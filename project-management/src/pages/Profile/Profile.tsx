@@ -10,6 +10,8 @@ import {
 } from 'store/actions/userApi';
 import { notificationsSlice } from 'store/reducers/notifications';
 import './Profile.scss';
+import '../../utils/i18n';
+import { useTranslation } from 'react-i18next';
 
 export function Profile() {
   const { setUnsuccessful, setSuccessful, setMessage } = notificationsSlice.actions;
@@ -30,6 +32,8 @@ export function Profile() {
   const { data, isLoading } = useGetUserByIdQuery(id, {
     refetchOnMountOrArgChange: true,
   });
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     console.log('data', data);
@@ -118,10 +122,10 @@ export function Profile() {
 
   return (
     <div className='profile'>
-      <h1>Profile</h1>
+      <h1>{t('profile.title')}</h1>
       <div className='profile__info'>
         <div className='profile__info__container'>
-          <h2>Change name: </h2>
+          <h2>{t('profile.changeNameTitle')}</h2>
           <TextField
             id='standard-basic'
             variant='standard'
@@ -133,11 +137,11 @@ export function Profile() {
             onChange={(e) => handleInputChange(e)}
             name='name'
             error={newName.length < 3 || !!newName.match(/[^a-zA-Zа-яА-Я]/)}
-            helperText={'Name must contain only letters and be at least 3 characters long'}
+            helperText={t('profile.changeNameHelper')}
           />
         </div>
         <div className='profile__info__container'>
-          <h2>Change login</h2>
+          <h2>{t('profile.changeLoginTitle')}</h2>
           <TextField
             id='standard-basic'
             variant='standard'
@@ -148,13 +152,11 @@ export function Profile() {
             value={newLogin}
             onChange={(e) => handleInputChange(e)}
             error={newLogin.length < 3 || !!newLogin.match(/[^a-zA-Z0-9]/)}
-            helperText={
-              'Login must contain only letters and numbers and be at least 3 characters long'
-            }
+            helperText={t('profile.changeLoginHelper')}
           />
         </div>
         <div className='profile__info__container'>
-          <h2>Change password</h2>
+          <h2>{t('profile.changePasswordTitle')}</h2>
           <TextField
             id='standard-basic'
             variant='standard'
@@ -165,9 +167,7 @@ export function Profile() {
             value={newPassword}
             onChange={(e) => handleInputChange(e)}
             error={newPassword.length < 6 || !!newPassword.match(/[^a-zA-Z0-9]/)}
-            helperText={
-              'Password must contain only letters and numbers and be at least 6 characters long'
-            }
+            helperText={t('profile.changePasswordHelper')}
           />
         </div>
       </div>
@@ -186,7 +186,7 @@ export function Profile() {
           onClick={() => handleUserChange()}
           variant='contained'
         >
-          Change
+          {t('profile.changeBtn')}
         </Button>
       )}
       {loadingDelete ? (
@@ -205,7 +205,7 @@ export function Profile() {
           variant='outlined'
           color='error'
         >
-          Delete account
+          {t('profile.deleteBtn')}
         </Button>
       )}
     </div>

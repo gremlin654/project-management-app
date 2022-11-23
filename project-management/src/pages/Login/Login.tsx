@@ -6,6 +6,9 @@ import { useGetAllUsersQuery, useGetUserByIdQuery } from 'store/actions/userApi'
 import { notificationsSlice } from 'store/reducers/notifications';
 import { userSlice } from 'store/reducers/userSlice';
 import '../Registration/Registration.scss';
+import '../../utils/i18n';
+import { useTranslation } from 'react-i18next';
+
 export function Login() {
   const { setUnsuccessful, setSuccessful, setMessage } = notificationsSlice.actions;
 
@@ -17,6 +20,8 @@ export function Login() {
 
   const { setToken } = userSlice.actions;
   const dispatch = useAppDispatch();
+
+  const { t } = useTranslation();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -64,13 +69,13 @@ export function Login() {
       <form action='' onSubmit={(e) => handleSubmit(e)}>
         <div className='registration__form'>
           <div className='registration__form__title'>
-            <h1>Login</h1>
+            <h1>{t('signIn.title')}</h1>
           </div>
           <div className='registration__form__input'>
             <input
               autoComplete='off'
               type='text'
-              placeholder='Login'
+              placeholder={`${t('signIn.placeholder1')}`}
               name='login'
               onChange={(e) => handleInputChange(e)}
             />
@@ -80,12 +85,16 @@ export function Login() {
             <input
               autoComplete='off'
               type='text'
-              placeholder='Password'
+              placeholder={`${t('signIn.placeholder2')}`}
               name='password'
               onChange={(e) => handleInputChange(e)}
             />
           </div>
-          <input type='submit' className='registration__form__input__submit' value={'Submit'} />
+          <input
+            type='submit'
+            className='registration__form__input__submit'
+            value={`${t('signIn.submitBtn')}`}
+          />
         </div>
       </form>
     </div>

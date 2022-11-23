@@ -14,11 +14,13 @@
     }
     @media (max-width: 767px) {
       flex-direction: row;
+      min-width: 30rem;
     }
   }
   &__avatar {
     & img {
-      width: 18rem;
+      min-width: 18rem;
+      width: 100%;
     }
   }
   &__about-container {
@@ -28,6 +30,9 @@
     padding: 1rem;
     align-items: center;
     gap: 0.7rem;
+    @media (max-width: 767px) {
+      align-items: flex-start;
+    }
   }
   &__name {
     font-family: 'Circular-Medium';
@@ -36,6 +41,10 @@
   &__major {
     font-family: 'Circular-Book';
     font-size: 1.7rem;
+    text-align: center;
+    @media (max-width: 419px) {
+      text-align: start;
+    }
   }
   &__github {
     display: flex;

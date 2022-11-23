@@ -1,6 +1,9 @@
 .main {
   flex: 1 0 auto;
   padding: 2rem 2.4rem;
+  @media (max-width: 419px) {
+    padding: 2rem 0.7rem;
+  }
 }
 .first-block {
   &__container {
@@ -26,6 +29,7 @@
   &__title {
     font-family: 'Circular-Bold';
     font-size: 5.5rem;
+    font-weight: 700;
     margin-bottom: 2rem;
     @media (max-width: 767px) {
       text-align: center;
