@@ -40,6 +40,4 @@ export interface IBoards {
 
 export interface IBoardsProps {
   card: IBoards;
-  update: boolean;
-  setUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 }

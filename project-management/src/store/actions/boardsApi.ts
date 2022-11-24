@@ -22,6 +22,7 @@ export const boardsApi = createApi({
           Authorization: `Bearer ${localStorage.getItem('token')}`,
           accept: 'application/json',
         },
+        body,
       }),
     }),
     getBoardById: builder.query({
@@ -80,6 +81,16 @@ export const boardsApi = createApi({
     }),
   }),
 });
+
+export const {
+  useGetAllBoardsQuery,
+  useCreateBoardMutation,
+  useGetBoardByIdQuery,
+  useUpdateBoardMutation,
+  useDeleteBoardMutation,
+  useGetBoardSetQuery,
+  useGetBoardSetByUserQuery,
+} = boardsApi;
 
 // import { AnyAction, createAsyncThunk } from '@reduxjs/toolkit';
 // import axios, { AxiosResponse } from 'axios';
