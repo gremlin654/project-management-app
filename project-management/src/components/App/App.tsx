@@ -8,10 +8,10 @@ import { Route, Routes } from 'react-router';
 import { PATH__ROUTES } from 'utils/path_routes';
 import './App.scss';
 import { Login } from 'pages/Login/Login';
-import { Board } from 'pages/Board/Board';
 import { Profile } from 'pages/Profile/Profile';
 import { AddBoard } from 'components/AddBoard/AddBoard';
 import { useAppSelector } from 'hooks/redux';
+import Boards from 'pages/Board/Boards';
 
 function App() {
   const { addBoardModal } = useAppSelector((state) => state.boardsSlice);
@@ -24,7 +24,7 @@ function App() {
         <Route path={PATH__ROUTES.REGISTRATION} element={<Registration />} />
         <Route path={PATH__ROUTES.LOGIN} element={<Login />} />
         <Route path={PATH__ROUTES.NOT_FOUND} element={<NotFoundPage />} />
-        <Route path={PATH__ROUTES.BOARDS} element={<Board />} />
+        <Route path={PATH__ROUTES.BOARDS} element={<Boards />} />
         <Route path={PATH__ROUTES.PROFILE} element={<Profile />} />
       </Routes>
       <Footer />

@@ -1,11 +1,19 @@
 import { sendNewBoard } from './../actions/boardsApi';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IBoardsInitial } from 'models/assets';
+import { IBoards, IBoardsInitial } from 'models/assets';
 
 const initialState: IBoardsInitial = {
   addBoardModal: false,
   isLoading: false,
   error: '',
+  getAllBoards: [
+    {
+      _id: '',
+      title: '',
+      owner: '',
+      users: [''],
+    },
+  ],
 };
 
 export const boardsSlice = createSlice({
@@ -15,6 +23,12 @@ export const boardsSlice = createSlice({
     setAddBoardModal: (state, action: PayloadAction<boolean>) => {
       state.addBoardModal = action.payload;
     },
+    setGetAllBoards: (state, action: PayloadAction<IBoards[]>) => {
+      state.getAllBoards = action.payload;
+    },
+    // parceTitles: (state, action: PayloadAction<string>) => {
+
+    // },
   },
   extraReducers: (builder) => {
     builder.addCase(sendNewBoard.fulfilled, (state) => {

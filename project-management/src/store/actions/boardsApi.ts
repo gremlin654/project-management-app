@@ -1,6 +1,9 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { AnyAction, createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosResponse } from 'axios';
+import { useAppDispatch } from 'hooks/redux';
 import { INewBoardResponse, IQueryNewBoard } from 'models/assets';
+import { boardsSlice } from 'store/reducers/boardsSlice';
+import { AppDispatch } from 'store/store';
 import { URL_API } from 'utils/url_api';
 
 export const sendNewBoard = createAsyncThunk(
