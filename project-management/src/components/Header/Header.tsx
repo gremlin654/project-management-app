@@ -20,6 +20,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import LoginIcon from '@mui/icons-material/Login';
 import { boardsSlice } from 'store/reducers/boardsSlice';
+import { useTranslation } from 'react-i18next';
+import '../../utils/i18n';
 
 const logoStyle = {
   mr: 'auto',
@@ -103,16 +105,25 @@ const buttonIconStyle = {
   '@media (max-width: 648px)': { width: '3rem', height: '3rem' },
 };
 
+const LANGUAGE = localStorage.getItem('i18nextLng') ?? 'en';
+
 export const Header = () => {
   const { token } = useAppSelector((state) => state.user);
   const { successful, unsuccessful, message } = useAppSelector((state) => state.notifications);
   const { setAddBoardModal } = boardsSlice.actions;
   const { setToken } = userSlice.actions;
   const dispatch = useAppDispatch();
-  const [alignment, setAlignment] = useState<string>('web');
+  const [alignment, setAlignment] = useState<string>(LANGUAGE);
+  const { t, i18n } = useTranslation();
 
   const handleChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string) => {
-    setAlignment(newAlignment);
+    if (newAlignment !== null) {
+      setAlignment(newAlignment);
+    }
+  };
+
+  const changeLanguege = (lang: string) => {
+    i18n.changeLanguage(lang);
   };
 
   const handleExit = () => {
@@ -162,11 +173,21 @@ export const Header = () => {
           aria-label='Platform'
           sx={langContainerStyle}
         >
-          <ToggleButton className='header__button-lang' value='web' sx={langBtnStyle}>
-            ENG
+          <ToggleButton
+            className='header__button-lang'
+            value='en'
+            sx={langBtnStyle}
+            onClick={() => changeLanguege('en')}
+          >
+            {t('header.langBtnEng')}
           </ToggleButton>
-          <ToggleButton className='header__button-lang' value='android' sx={langBtnStyle}>
-            RUS
+          <ToggleButton
+            className='header__button-lang'
+            value='ru'
+            sx={langBtnStyle}
+            onClick={() => changeLanguege('ru')}
+          >
+            {t('header.langBtnRU')}
           </ToggleButton>
         </ToggleButtonGroup>
         {token ? (
@@ -182,7 +203,7 @@ export const Header = () => {
               }}
             >
               <AppsIcon sx={buttonIconStyle} />
-              <Typography sx={buttonTextSignUp}>Boards</Typography>
+              <Typography sx={buttonTextSignUp}>{t('header.boardsBtn')}</Typography>
             </Button>
             <Button
               variant='contained'
@@ -194,7 +215,7 @@ export const Header = () => {
               onClick={() => dispatch(setAddBoardModal(true))}
             >
               <DashboardCustomizeIcon sx={buttonIconStyle} />
-              <Typography sx={buttonTextSignUp}>Add Board</Typography>
+              <Typography sx={buttonTextSignUp}>{t('header.addBoardBtn')}</Typography>
             </Button>
             <Button
               variant='contained'
@@ -207,7 +228,7 @@ export const Header = () => {
               }}
             >
               <AccountBoxIcon sx={buttonIconStyle} />
-              <Typography sx={buttonTextSignUp}>Profile</Typography>
+              <Typography sx={buttonTextSignUp}>{t('header.profileBtn')}</Typography>
             </Button>
             <Button
               variant='contained'
@@ -220,7 +241,7 @@ export const Header = () => {
               onClick={() => handleExit()}
             >
               <LogoutIcon sx={buttonIconStyle} />
-              <Typography sx={buttonTextSignUp}>Sign Out</Typography>
+              <Typography sx={buttonTextSignUp}>{t('header.signOutBtn')}</Typography>
             </Button>
           </Box>
         ) : (
@@ -237,7 +258,7 @@ export const Header = () => {
               to={PATH__ROUTES.LOGIN}
             >
               <LoginIcon sx={buttonIconStyle} />
-              <Typography sx={buttonTextSignUp}>Sign In</Typography>
+              <Typography sx={buttonTextSignUp}>{t('header.signInBtn')}</Typography>
             </Button>
             <Button
               variant='contained'
@@ -250,7 +271,7 @@ export const Header = () => {
               }}
             >
               <PersonAddIcon sx={buttonIconStyle} />
-              <Typography sx={buttonTextSignUp}>Sign Up</Typography>
+              <Typography sx={buttonTextSignUp}>{t('header.signUpBtn')}</Typography>
             </Button>
           </Box>
         )}

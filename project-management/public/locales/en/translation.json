@@ -1,0 +1,86 @@
+{
+  "header": {
+    "langBtnEng": "ENG",
+    "langBtnRU": "RUS",
+    "boardsBtn": "Boards",
+    "addBoardBtn": "Add board",
+    "profileBtn": "Profile",
+    "signInBtn": "Sign In",
+    "signOutBtn": "Sign Out",
+    "signUpBtn": "Sign Up"
+  },
+  "welcome": {
+    "title": "Project Management Application",
+    "subTitle": "We are glad to present to your attention our application PMApp. With it, you can easily manage your project, be aware of all the tasks and control the progress of their implementation.",
+    "subTitle2": "Start with board, lists and cards. Manage projects, organize tasks, and build team spirit.",
+    "subTitleBtnIn": "Go to boards",
+    "subTitleBtnOut": "Get started",
+    "teamTitle": "Our team",
+    "teamCards": [
+      {
+        "avatar": "./assets/jpg/gremlin-180.jpg",
+        "avatarWebP": "./assets/webp/gremlin-180.webp",
+        "name": "Sidelnikov Andrey",
+        "major": "Front-end developer",
+        "github": "https://github.com/gremlin654"
+      },
+      {
+        "avatar": "./assets/jpg/diffick-180.jpg",
+        "avatarWebP": "./assets/webp/diffick-180.webp",
+        "name": "Fishtik Ilya",
+        "major": "Front-end developer",
+        "github": "https://github.com/diffickmenlogo"
+      },
+      {
+        "avatar": "./assets/jpg/yulia-180.jpg",
+        "avatarWebP": "./assets/webp/yulia-180.webp",
+        "name": "Naumchik Julia",
+        "major": "Front-end developer",
+        "github": "https://github.com/yuliaN145"
+      }
+    ]
+  },
+  "addBoard": {
+    "title": "Create board",
+    "placeholder1": "Title:",
+    "placeholder2": "Description:",
+    "error1": "Please enter board title",
+    "error2": "Please enter board description",
+    "createBtn": "Create"
+  },
+  "page404": {
+    "title": "Ouch! Page not found!",
+    "text": "Sorry, we can't find the page you requested. You may have entered the address incorrectly.",
+    "homeBtn": "Home"
+  },
+  "profile": {
+    "title": "Profile",
+    "changeNameTitle": "Change name",
+    "changeNameHelper": "Name must contain only letters and be at least 3 characters long",
+    "changeLoginTitle": "Change login",
+    "changeLoginHelper": "Login must contain only letters and numbers and be at least 3 characters long",
+    "changePasswordTitle": "Change password",
+    "changePasswordHelper": "Password must contain only letters and numbers and be at least 6 characters long",
+    "changeBtn": "Change",
+    "deleteBtn": "Delete account"
+  },
+  "signIn": {
+    "title": "Login",
+    "placeholder1": "Login",
+    "placeholder2": "Password",
+    "submitSucces": "Login successful",
+    "submitError": "Something went wrong",
+    "submitBtn": "Submit"
+  },
+  "signUp": {
+    "title": "Registration",
+    "placeholder1": "Name",
+    "valid1": "Name must contain only letters and be more than 2 characters",
+    "placeholder2": "Login",
+    "valid2": "Login must contain only letters and numbers and be more than 3 characters",
+    "placeholder3": "Password",
+    "valid3": "Password must contain only letters and numbers and be more than 6 characters",
+    "regSucces": "Registration successful",
+    "regBtn": "Submit"
+  }
+}

@@ -5,8 +5,12 @@ import errorImgWebP from '../../assets/webp/error404.webp';
 import { Button } from '@mui/material';
 import { PATH__ROUTES } from 'utils/path_routes';
 import { Link } from 'react-router-dom';
+import '../../utils/i18n';
+import { useTranslation } from 'react-i18next';
 
 export const NotFoundPage = () => {
+  const { t } = useTranslation();
+
   return (
     <div className='error-page'>
       <div className='error-page__container'>
@@ -16,10 +20,8 @@ export const NotFoundPage = () => {
             <img src={errorImg} alt='404' />
           </picture>
         </div>
-        <h2 className='error-page__title'>Ouch! Page not found!</h2>
-        <p className='error-page__text'>
-          {`Sorry, we can't find the page you requested. You may have entered the address incorrectly.`}
-        </p>
+        <h2 className='error-page__title'>{t('page404.title')}</h2>
+        <p className='error-page__text'>{t('page404.text')}</p>
         <Button
           variant='contained'
           sx={{
@@ -31,7 +33,7 @@ export const NotFoundPage = () => {
           }}
         >
           <Link className='error-page__button-link' to={PATH__ROUTES.MAIN}>
-            Home
+            {t('page404.homeBtn')}
           </Link>
         </Button>
       </div>

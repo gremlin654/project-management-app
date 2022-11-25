@@ -6,6 +6,8 @@ import { boardsSlice } from 'store/reducers/boardsSlice';
 // import { sendNewBoard } from 'store/actions/boardsApi';
 import { Spinner } from 'components/Spinner/Spinner';
 import { FormData } from '../../models/assets';
+import { useTranslation } from 'react-i18next';
+import '../../utils/i18n';
 import './AddBoard.scss';
 import { useCreateBoardMutation } from 'store/actions/boardsApi';
 
@@ -13,6 +15,7 @@ export const AddBoard = () => {
   const { isLoading } = useAppSelector((state) => state.boardsSlice);
   const { setAddBoardModal, addBoard } = boardsSlice.actions;
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
 
   const [createBoard, { isLoading: loading }] = useCreateBoardMutation();
 
@@ -59,7 +62,7 @@ export const AddBoard = () => {
         <button className='add-board-modal__close-btn' onClick={closeModal}>
           ╳
         </button>
-        <h3 className='add-board-modal__title'>Create board</h3>
+        <h3 className='add-board-modal__title'>{t('addBoard.title')}</h3>
         {isLoading ? (
           <Spinner />
         ) : (
@@ -70,23 +73,25 @@ export const AddBoard = () => {
             <label className='add-board-form__label'>
               <input
                 {...register('title', {
-                  required: 'Please enter board title',
+                  required: `${t('addBoard.error1')}`,
                 })}
                 className={`add-board-form__input ${
                   errors.title ? 'add-board-form__input-error' : ''
                 }`}
-                placeholder={errors.title ? errors.title.message : 'Title:'}
+                placeholder={errors.title ? errors.title.message : `${t('addBoard.placeholder1')}`}
               />
             </label>
             <label className='add-board-form__label'>
               <input
                 {...register('description', {
-                  required: 'Please enter board description',
+                  required: `${t('addBoard.error2')}`,
                 })}
                 className={`add-board-form__input ${
                   errors.description ? 'add-board-form__input-error' : ''
                 }`}
-                placeholder={errors.description ? errors.description.message : 'Description:'}
+                placeholder={
+                  errors.description ? errors.description.message : `${t('addBoard.placeholder2')}`
+                }
               />
             </label>
             <div className='add-board-form__submit-container'>
@@ -101,7 +106,7 @@ export const AddBoard = () => {
                   '&:hover': { backgroundColor: '#ffffcc' },
                 }}
               >
-                Create
+                {t('addBoard.createBtn')}
               </Button>
             </div>
           </form>
