@@ -3,7 +3,6 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import React, { useEffect } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { boardsSlice } from 'store/reducers/boardsSlice';
-// import { sendNewBoard } from 'store/actions/boardsApi';
 import { Spinner } from 'components/Spinner/Spinner';
 import { FormData } from '../../models/assets';
 import { useTranslation } from 'react-i18next';
@@ -12,7 +11,6 @@ import './AddBoard.scss';
 import { useCreateBoardMutation } from 'store/actions/boardsApi';
 
 export const AddBoard = () => {
-  const { isLoading } = useAppSelector((state) => state.boardsSlice);
   const { setAddBoardModal, addBoard } = boardsSlice.actions;
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
@@ -63,7 +61,7 @@ export const AddBoard = () => {
           ╳
         </button>
         <h3 className='add-board-modal__title'>{t('addBoard.title')}</h3>
-        {isLoading ? (
+        {loading ? (
           <Spinner />
         ) : (
           <form

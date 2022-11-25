@@ -21,8 +21,6 @@ export interface INewBoardResponse {
 
 export interface IBoardsInitial {
   addBoardModal: boolean;
-  isLoading: boolean;
-  error: string;
   getAllBoards: IBoards[];
 }
 

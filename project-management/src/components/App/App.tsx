@@ -11,7 +11,7 @@ import { Login } from 'pages/Login/Login';
 import { Profile } from 'pages/Profile/Profile';
 import { AddBoard } from 'components/AddBoard/AddBoard';
 import { useAppSelector } from 'hooks/redux';
-import Boards from 'pages/Board/Boards';
+import Boards from 'pages/Boards/Boards';
 import { Spinner } from 'components/Spinner/Spinner';
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
           <Route path={PATH__ROUTES.REGISTRATION} element={<Registration />} />
           <Route path={PATH__ROUTES.LOGIN} element={<Login />} />
           <Route path={PATH__ROUTES.NOT_FOUND} element={<NotFoundPage />} />
-          <Route path={PATH__ROUTES.BOARDS} element={<Board />} />
+          <Route path={PATH__ROUTES.BOARDS} element={<Boards />} />
           <Route path={PATH__ROUTES.PROFILE} element={<Profile />} />
         </Routes>
         <Footer />

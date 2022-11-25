@@ -1,11 +1,8 @@
 import React from 'react';
-import '../../pages/Board/Board.scss';
 import { ReactComponent as Trash } from '../../assets/svg/trashcan.svg';
-import '../../pages/Board/Board.scss';
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { IBoards, IBoardsProps } from 'models/assets';
-import axios from 'axios';
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import './Board.scss';
+import { useAppDispatch } from 'hooks/redux';
+import { IBoardsProps } from 'models/assets';
 import { useDeleteBoardMutation } from 'store/actions/boardsApi';
 import { boardsSlice } from 'store/reducers/boardsSlice';
 
@@ -13,6 +10,8 @@ export default function Board(props: IBoardsProps) {
   const [deleteBoardApi] = useDeleteBoardMutation();
   const dispatch = useAppDispatch();
   const { deleteBoard } = boardsSlice.actions;
+
+  const title = props.card.title ? JSON.parse(props.card.title) : console.log('error');
 
   const handelDeleteBoard = async (id: string) => {
     try {
@@ -23,40 +22,12 @@ export default function Board(props: IBoardsProps) {
       console.log(error);
     }
   };
-  // const dispatch = useAppDispatch();
 
-  // const deleteBoard = createAsyncThunk(
-  //   'boards/deleteBoard',
-  //   async (query: any, { rejectWithValue }) => {
-  //     try {
-  //       const headers = {
-  //         'Content-Type': 'application/json',
-  //         Authorization: `Bearer ${localStorage.getItem('token')}`,
-  //       };
-  //       const response: any = await axios.delete(
-  //         `https://final-task-rest-production.up.railway.app/boards/${query}`,
-  //         {
-  //           headers,
-  //         },
-  //       );
-  //       props.setUpdate((prev) => !prev);
-  //       console.log(response.data);
-  //     } catch (error) {
-  //       return rejectWithValue('Failed to send data');
-  //     }
-  //   },
-  // );
-
-  // const req = () => {
-  //   dispatch(deleteBoard(props.card._id));
-  // };
-
-  //onClick={() => req()}
-
-  const title = props.card.title ? JSON.parse(props.card.title) : console.log('error');
   return (
     <div className='board'>
-      <Trash className='board__trash' onClick={() => handelDeleteBoard(props.card._id)} />
+      <button className='board__trash' onClick={() => handelDeleteBoard(props.card._id)}>
+        <Trash />
+      </button>
       <h3 className='board__title'>{title.title}</h3>
       <div className='board__description'>{title.description}</div>
     </div>

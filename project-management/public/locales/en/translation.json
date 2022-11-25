@@ -82,5 +82,8 @@
     "valid3": "Password must contain only letters and numbers and be more than 6 characters",
     "regSucces": "Registration successful",
     "regBtn": "Submit"
+  },
+  "boards": {
+    "title": "Your Boards"
   }
 }
