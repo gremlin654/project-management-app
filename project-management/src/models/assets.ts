@@ -39,3 +39,14 @@ export interface IBoards {
 export interface IBoardsProps {
   card: IBoards;
 }
+
+export interface IColumn {
+  _id: string;
+  title: string;
+  order: number;
+  boardId: string;
+}
+
+export interface IColumnProps {
+  column: IColumn;
+}

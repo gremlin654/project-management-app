@@ -5,4 +5,5 @@ export const PATH__ROUTES = {
   NOT_FOUND: '*',
   BOARDS: '/boards',
   PROFILE: '/profile',
+  COLUMNS: '/columns',
 };

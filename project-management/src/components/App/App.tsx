@@ -13,6 +13,7 @@ import { AddBoard } from 'components/AddBoard/AddBoard';
 import { useAppSelector } from 'hooks/redux';
 import Boards from 'pages/Boards/Boards';
 import { Spinner } from 'components/Spinner/Spinner';
+import { Columns } from 'pages/Columns/Columns';
 
 function App() {
   const { addBoardModal } = useAppSelector((state) => state.boardsSlice);
@@ -28,6 +29,7 @@ function App() {
           <Route path={PATH__ROUTES.NOT_FOUND} element={<NotFoundPage />} />
           <Route path={PATH__ROUTES.BOARDS} element={<Boards />} />
           <Route path={PATH__ROUTES.PROFILE} element={<Profile />} />
+          <Route path={PATH__ROUTES.COLUMNS} element={<Columns />} />
         </Routes>
         <Footer />
         {addBoardModal && <AddBoard />}
