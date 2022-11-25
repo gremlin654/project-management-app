@@ -3,18 +3,21 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import React, { useEffect } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { boardsSlice } from 'store/reducers/boardsSlice';
-import { sendNewBoard } from 'store/actions/boardsApi';
+// import { sendNewBoard } from 'store/actions/boardsApi';
 import { Spinner } from 'components/Spinner/Spinner';
 import { FormData } from '../../models/assets';
 import { useTranslation } from 'react-i18next';
 import '../../utils/i18n';
 import './AddBoard.scss';
+import { useCreateBoardMutation } from 'store/actions/boardsApi';
 
 export const AddBoard = () => {
   const { isLoading } = useAppSelector((state) => state.boardsSlice);
-  const { setAddBoardModal } = boardsSlice.actions;
+  const { setAddBoardModal, addBoard } = boardsSlice.actions;
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
+
+  const [createBoard, { isLoading: loading }] = useCreateBoardMutation();
 
   useEffect(() => {
     document.body.classList.add('block');
@@ -39,13 +42,18 @@ export const AddBoard = () => {
     dispatch(setAddBoardModal(false));
   };
 
-  const onSubmitData: SubmitHandler<FieldValues> = (data) => {
+  const onSubmitData: SubmitHandler<FieldValues> = async (data) => {
     const formData = {
       title: JSON.stringify({ title: data.title, description: data.description }),
       owner: localStorage.getItem('userId') || '',
       users: [''],
     };
-    dispatch(sendNewBoard(formData));
+    try {
+      const response = await createBoard(formData).unwrap();
+      dispatch(addBoard(response));
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (

@@ -8,10 +8,10 @@ import { Route, Routes } from 'react-router';
 import { PATH__ROUTES } from 'utils/path_routes';
 import './App.scss';
 import { Login } from 'pages/Login/Login';
-import { Board } from 'pages/Board/Board';
 import { Profile } from 'pages/Profile/Profile';
 import { AddBoard } from 'components/AddBoard/AddBoard';
 import { useAppSelector } from 'hooks/redux';
+import Boards from 'pages/Board/Boards';
 import { Spinner } from 'components/Spinner/Spinner';
 
 function App() {
