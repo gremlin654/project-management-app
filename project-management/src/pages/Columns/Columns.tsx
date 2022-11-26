@@ -1,13 +1,18 @@
 import './Columns.scss';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { Column } from './Column';
 import { useCreateColumnMutation, useGetColumnsQuery } from 'store/actions/columnsApi';
 import { Spinner } from 'components/Spinner/Spinner';
 import { IColumn } from 'models/assets';
 import { columnSlice } from 'store/reducers/columnSlice';
+import { ColumnModal } from 'components/ColumnModal/ColumnModal';
 
 export function Columns() {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const { currentBoard } = useAppSelector((state) => state.columns);
   const { columns } = useAppSelector((state) => state.columns);
 
@@ -20,14 +25,15 @@ export function Columns() {
 
   const [createColumn] = useCreateColumnMutation();
 
-  const handleCreateColumn = async () => {
+  const handleCreateColumn = async (titleStr: string) => {
     try {
       const response = await createColumn({
-        title: 'Column',
-        order: '1',
+        title: titleStr,
+        order: 1,
         boardId: currentBoard,
       }).unwrap();
       dispatch(addColumn(response));
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -35,14 +41,10 @@ export function Columns() {
 
   useEffect(() => {
     if (!isLoading) {
-      console.log(columnsApi);
       dispatch(setCollumns(columnsApi));
     }
   }, [isLoading]);
-  useEffect(() => {
-    console.log(columns);
-    console.log(columnsApi);
-  }, [columns, isLoading]);
+
   return (
     <div className='columns'>
       <h1>Columns</h1>
@@ -53,11 +55,12 @@ export function Columns() {
           columns.map((column: IColumn) => <Column key={column._id} column={column} />)
         )}
         <div className='columns__add'>
-          <div className='columns__add__btn' onClick={() => handleCreateColumn()}>
+          <div className='columns__add__btn' onClick={() => handleOpen()}>
             + Add column
           </div>
         </div>
       </div>
+      <ColumnModal open={open} handleClose={handleClose} handleCreateColumn={handleCreateColumn} />
     </div>
   );
 }
