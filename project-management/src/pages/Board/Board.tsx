@@ -5,11 +5,14 @@ import { useAppDispatch } from 'hooks/redux';
 import { IBoardsProps } from 'models/assets';
 import { useDeleteBoardMutation } from 'store/actions/boardsApi';
 import { boardsSlice } from 'store/reducers/boardsSlice';
+import { Link } from 'react-router-dom';
+import { columnSlice } from 'store/reducers/columnSlice';
 
 export default function Board(props: IBoardsProps) {
   const [deleteBoardApi] = useDeleteBoardMutation();
   const dispatch = useAppDispatch();
   const { deleteBoard } = boardsSlice.actions;
+  const { setCurrentBoard } = columnSlice.actions;
 
   const title = props.card.title ? JSON.parse(props.card.title) : console.log('error');
 
@@ -22,14 +25,18 @@ export default function Board(props: IBoardsProps) {
       console.log(error);
     }
   };
+  const handleOpenBoard = () => {
+    dispatch(setCurrentBoard(props.card._id));
+    localStorage.setItem('currentBoard', props.card._id);
+  };
 
   return (
-    <div className='board'>
+    <Link to={'/columns'} onClick={() => handleOpenBoard()} className='board'>
       <button className='board__trash' onClick={() => handelDeleteBoard(props.card._id)}>
         <Trash />
       </button>
       <h3 className='board__title'>{title.title}</h3>
       <div className='board__description'>{title.description}</div>
-    </div>
+    </Link>
   );
 }
