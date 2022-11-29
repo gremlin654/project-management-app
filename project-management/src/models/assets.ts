@@ -50,3 +50,34 @@ export interface IColumn {
 export interface IColumnProps {
   column: IColumn;
 }
+
+export interface ITask {
+  _id: string;
+  title: string;
+  order: number;
+  boardId: string;
+  columnId: string;
+  description: string;
+  userId: string;
+  users: [string] | string[];
+}
+
+export interface ITaskInitial {
+  tasks: ITask[];
+}
+
+export interface ITaskProps {
+  task: ITask;
+}
+
+export interface IModalColumnProps {
+  open: boolean;
+  handleClose: () => void;
+  handleCreateColumn: (title: string) => void;
+}
+
+export interface IModalTaskProps {
+  open: boolean;
+  handleClose: () => void;
+  handleCreateTask: (title: string, description: string) => void;
+}

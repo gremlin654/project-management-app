@@ -1,3 +1,5 @@
+import { taskSlice } from './reducers/tasksSlice';
+import { tasksApi } from './actions/taskApi';
 import { columnSlice } from './reducers/columnSlice';
 import { columnsApi } from './actions/columnsApi';
 import { notificationsSlice } from './reducers/notifications';
@@ -13,6 +15,8 @@ const rootReducer = combineReducers({
   [userApi.reducerPath]: userApi.reducer,
   [boardsApi.reducerPath]: boardsApi.reducer,
   [columnsApi.reducerPath]: columnsApi.reducer,
+  [tasksApi.reducerPath]: tasksApi.reducer,
+  tasks: taskSlice.reducer,
   columns: columnSlice.reducer,
   user: userSlice.reducer,
   notifications: notificationsSlice.reducer,
@@ -28,6 +32,7 @@ export const setupStore = () => {
         userApi.middleware,
         boardsApi.middleware,
         columnsApi.middleware,
+        tasksApi.middleware,
       ),
   });
 };
