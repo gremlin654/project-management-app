@@ -1,4 +1,4 @@
-import { useAppDispatch } from 'hooks/redux';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { IError } from '../../models/assets';
 import React, { useState } from 'react';
 import { useRegisterMutation, useLoginMutation } from 'store/actions/authAPi';
@@ -7,9 +7,12 @@ import { userSlice } from 'store/reducers/userSlice';
 import './Registration.scss';
 import '../../utils/i18n';
 import { useTranslation } from 'react-i18next';
+import { Navigate } from 'react-router';
+import { PATH__ROUTES } from 'utils/path_routes';
 
 export function Registration() {
   const { setUnsuccessful, setSuccessful, setMessage } = notificationsSlice.actions;
+  const { token } = useAppSelector((state) => state.user);
 
   const [name, setName] = useState('');
   const [login, setLogin] = useState('');
@@ -22,6 +25,10 @@ export function Registration() {
   const dispatch = useAppDispatch();
 
   const { t } = useTranslation();
+
+  if (token) {
+    return <Navigate to={PATH__ROUTES.BOARDS} />;
+  }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -63,7 +70,7 @@ export function Registration() {
       setTimeout(() => {
         dispatch(setSuccessful(false));
       }, 9000);
-      location.assign('/');
+      // location.assign('/');
     } catch (error) {
       const currentError = error as IError;
       dispatch(setUnsuccessful(true));
@@ -77,7 +84,7 @@ export function Registration() {
 
   return (
     <div className='registration'>
-      <form action='' onSubmit={(e) => handleSubmit(e)}>
+      <form className='registration__form-container' action='' onSubmit={(e) => handleSubmit(e)}>
         <div className='registration__form'>
           <div className='registration__form__title'>
             <h1>{t('signUp.title')}</h1>

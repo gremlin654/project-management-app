@@ -3,14 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { ReactComponent as Git } from '../../assets/svg/github-icon.svg';
 import './TeamMember.scss';
 import '../../utils/i18n';
-
-interface ITeamMember {
-  avatar: string;
-  name: string;
-  major: string;
-  github: string;
-  avatarWebP: string;
-}
+import { ITeamMember } from 'models/assets';
 
 export const TeamMember: React.FC<ITeamMember> = ({ name, major, avatar, avatarWebP, github }) => {
   const { t } = useTranslation();

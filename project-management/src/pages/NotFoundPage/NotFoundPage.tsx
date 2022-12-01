@@ -32,7 +32,7 @@ export const NotFoundPage = () => {
             '&:hover': { backgroundColor: '#9f9af1' },
           }}
         >
-          <Link className='error-page__button-link' to={PATH__ROUTES.MAIN}>
+          <Link className='error-page__button-link' to={PATH__ROUTES.BOARDS}>
             {t('page404.homeBtn')}
           </Link>
         </Button>

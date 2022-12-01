@@ -1,5 +1,5 @@
 import { Button } from '@mui/material';
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { useAppDispatch } from 'hooks/redux';
 import React, { useEffect } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { boardsSlice } from 'store/reducers/boardsSlice';

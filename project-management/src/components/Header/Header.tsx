@@ -159,7 +159,7 @@ export const Header = () => {
         </Alert>
       )}
       <Toolbar>
-        <Typography variant='h6' noWrap component={Link} to={PATH__ROUTES.MAIN} sx={logoStyle}>
+        <Typography variant='h6' noWrap component={Link} to={PATH__ROUTES.WELCOME} sx={logoStyle}>
           <ViewKanbanOutlinedIcon sx={logoIconStyle} />
           <Typography variant='h6' component='span' sx={logoTextStyle}>
             PMApp

@@ -2,7 +2,7 @@
   "header": {
     "langBtnEng": "ENG",
     "langBtnRU": "RUS",
-    "boardsBtn": "Boards",
+    "boardsBtn": "Main Page",
     "addBoardBtn": "Add board",
     "profileBtn": "Profile",
     "signInBtn": "Sign In",
@@ -85,5 +85,30 @@
   },
   "boards": {
     "title": "Your Boards"
+  },
+  "boardPage": {
+    "backBtn": "Back",
+    "addColumnBtn": "Add column",
+    "addTaskBtn": "Add task",
+    "errorColumn": "Please enter column title",
+    "errorTask1": "Please enter task title",
+    "errorTask2": "Please enter task description"
+  },
+  "deleteModal": {
+    "boardTitle": "Delete board",
+    "boardText": "Are you sure you want to delete the board?",
+    "columnTitle": "Delete column",
+    "columnText": "Are you sure you want to delete the column?",
+    "taskTitle": "Delete task",
+    "taskText": "Are you sure you want to delete the task?",
+    "deleteBtn": "Delete",
+    "closeBtn": "Close"
+  },
+  "changeTask": {
+    "title": "Change task",
+    "error1": "Please enter task title",
+    "error2": "Please enter task description",
+    "changeBtn": "Change",
+    "closeBtn": "Close"
   }
 }

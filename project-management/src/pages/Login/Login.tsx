@@ -1,17 +1,19 @@
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { IError } from 'models/assets';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useLoginMutation } from 'store/actions/authAPi';
-import { useGetAllUsersQuery, useGetUserByIdQuery } from 'store/actions/userApi';
+import { useGetAllUsersQuery } from 'store/actions/userApi';
 import { notificationsSlice } from 'store/reducers/notifications';
 import { userSlice } from 'store/reducers/userSlice';
 import '../Registration/Registration.scss';
 import '../../utils/i18n';
 import { useTranslation } from 'react-i18next';
+import { Navigate } from 'react-router';
+import { PATH__ROUTES } from 'utils/path_routes';
 
 export function Login() {
   const { setUnsuccessful, setSuccessful, setMessage } = notificationsSlice.actions;
-
+  const { token } = useAppSelector((state) => state.user);
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
 
@@ -22,6 +24,10 @@ export function Login() {
   const dispatch = useAppDispatch();
 
   const { t } = useTranslation();
+
+  if (token) {
+    return <Navigate to={PATH__ROUTES.BOARDS} />;
+  }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -53,7 +59,7 @@ export function Login() {
       //   allUsers.find((user: { login: string; _id: string; name: string }) => user.login === login)
       //     ._id,
       // );
-      location.assign('/');
+      // location.assign('/');
     } catch (error) {
       const currentError = error as IError;
       dispatch(setUnsuccessful(true));
@@ -66,7 +72,7 @@ export function Login() {
   };
   return (
     <div className='registration'>
-      <form action='' onSubmit={(e) => handleSubmit(e)}>
+      <form className='registration__form-container' action='' onSubmit={(e) => handleSubmit(e)}>
         <div className='registration__form'>
           <div className='registration__form__title'>
             <h1>{t('signIn.title')}</h1>
