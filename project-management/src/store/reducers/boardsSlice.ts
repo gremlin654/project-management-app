@@ -9,7 +9,6 @@ import {
   deleteColumn,
   deleteTask,
   getTasks,
-  setColumns,
 } from 'store/actions/boardsApi';
 
 const initialState: IBoardsInitial = {
@@ -124,12 +123,13 @@ export const boardsSlice = createSlice({
     });
 
     builder.addCase(changeColumnTitle.fulfilled, (state, action: PayloadAction<IAddAllColumns>) => {
-      state.currentColumns = state.currentColumns.map((column) => {
+      const newColumns = state.currentColumns.map((column) => {
         if (column._id === action.payload._id) {
           return action.payload;
         }
         return column;
       });
+      state.currentColumns = newColumns.sort((a, b) => (a.order > b.order ? 1 : -1));
       state.isLoadingBoard = false;
     });
     builder.addCase(changeColumnTitle.pending, (state) => {
@@ -218,16 +218,22 @@ export const boardsSlice = createSlice({
       state.isDeleteTask = false;
     });
 
-    builder.addCase(setColumns.fulfilled, (state, action: PayloadAction<IAddAllColumns[]>) => {
-      state.currentColumns = action.payload.sort((a, b) => (a.order > b.order ? 1 : -1));
-      state.isLoadingBoard = false;
-    });
-    builder.addCase(setColumns.pending, (state) => {
-      state.isLoadingBoard = true;
-    });
-    builder.addCase(setColumns.rejected, (state, action) => {
-      state.isLoadingBoard = false;
-      state.error = action.payload;
-    });
+    // builder.addCase(setColumns.fulfilled, (state, action: PayloadAction<IAddAllColumns[]>) => {
+    //   // state.currentColumns = state.currentColumns.map((column) => {
+    //   //   if (column._id === action.payload._id) {
+    //   //     return action.payload;
+    //   //   }
+    //   //   return column;
+    //   // });
+    //   state.currentColumns = action.payload.sort((a, b) => (a.order > b.order ? 1 : -1));
+    //   state.isLoadingBoard = false;
+    // });
+    // builder.addCase(setColumns.pending, (state) => {
+    //   state.isLoadingBoard = true;
+    // });
+    // builder.addCase(setColumns.rejected, (state, action) => {
+    //   state.isLoadingBoard = false;
+    //   state.error = action.payload;
+    // });
   },
 });

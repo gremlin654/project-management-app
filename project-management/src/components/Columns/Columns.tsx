@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './Columns.scss';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import { Button, Typography } from '@mui/material';
@@ -7,8 +7,9 @@ import '../../utils/i18n';
 import { useTranslation } from 'react-i18next';
 import { boardsSlice } from 'store/reducers/boardsSlice';
 import { Column } from 'components/Column/Column';
-import { IAddAllColumns, IColumns } from 'models/assets';
-import { setColumns } from 'store/actions/boardsApi';
+import { IColumns } from 'models/assets';
+import { changeColumnTitle } from 'store/actions/boardsApi';
+import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 
 const btnAddBoardStyle = {
   width: '22rem',
@@ -33,59 +34,62 @@ const textBtnStyle = { fontWeight: 600, fontSize: '1.4rem' };
 
 export const Columns: React.FC<IColumns> = ({ idBoard }) => {
   const { currentColumns } = useAppSelector((state) => state.boardsSlice);
-  const { addColumn, setCurrentColumns, sortColumns } = boardsSlice.actions;
+  const { addColumn } = boardsSlice.actions;
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const [currentCard, setCurrentCard] = useState(null) as any;
 
   const setAddColumn = () => {
     dispatch(addColumn(true));
   };
 
-  function dragStartHandler(e: React.DragEvent<HTMLDivElement>, item: IAddAllColumns): void {
-    setCurrentCard(item);
-  }
-
-  function dragOverHandler(e: React.DragEvent<HTMLDivElement>): void {
-    e.preventDefault();
-  }
-
-  const dropHandler = (e: React.DragEvent<HTMLDivElement>, item: IAddAllColumns): void => {
-    e.preventDefault();
-    dispatch(
-      setCurrentColumns(
-        currentColumns.map((c: IAddAllColumns) => {
-          if (c._id === item._id) {
-            return { ...c, order: currentCard.order };
-          }
-          if (c._id === currentCard._id) {
-            return { ...c, order: item.order };
-          }
-          return c;
-        }),
-      ),
-    );
-    dispatch(sortColumns());
-    dispatch(setColumns(currentColumns));
+  const onDragEnd = (res: DropResult) => {
+    const { destination } = res;
+    if (!destination) return;
+    if (!currentColumns) return;
+    if (destination.droppableId === idBoard) {
+      const movedColumn = currentColumns.find((column) => column._id === res.draggableId);
+      if (movedColumn) {
+        const query = {
+          boardId: idBoard,
+          columnId: movedColumn._id,
+          title: movedColumn?.title,
+          order: destination.index + 1,
+        };
+        dispatch(changeColumnTitle(query));
+        return;
+      }
+    }
   };
 
   return (
     <div className='columns__container'>
       <div className='columns__wrapper'>
-        {currentColumns &&
-          currentColumns.map((item: IAddAllColumns) => (
-            <div
-              key={item._id}
-              draggable={true}
-              onDragStart={(e) => dragStartHandler(e, item)}
-              // onDragLeave={(e) => dragEndHandler(e)}
-              // onDragEnd={(e) => dragEndHandler(e)}
-              onDragOver={(e) => dragOverHandler(e)}
-              onDrop={(e) => dropHandler(e, item)}
-            >
-              <Column key={item._id} item={item} />
-            </div>
-          ))}
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId={idBoard} type='COLUMNS' direction='horizontal'>
+            {(provided) => (
+              <div
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                style={{ display: 'flex', gap: '2rem' }}
+              >
+                {currentColumns.map((column, index) => (
+                  <Draggable key={column._id} draggableId={column._id} index={index}>
+                    {(provided) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      >
+                        {<Column key={column._id} item={column} />}
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
         <Button variant='contained' sx={btnAddBoardStyle} onClick={setAddColumn}>
           <PostAddIcon sx={iconBtnStyle} />
           <Typography sx={textBtnStyle}>{t('boardPage.addColumnBtn')}</Typography>
