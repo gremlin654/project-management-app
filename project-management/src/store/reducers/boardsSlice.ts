@@ -219,7 +219,7 @@ export const boardsSlice = createSlice({
     });
 
     builder.addCase(setColumns.fulfilled, (state, action: PayloadAction<IAddAllColumns[]>) => {
-      state.currentColumns = state.currentColumns.sort((a, b) => (a.order > b.order ? 1 : -1));
+      state.currentColumns = action.payload.sort((a, b) => (a.order > b.order ? 1 : -1));
       state.isLoadingBoard = false;
     });
     builder.addCase(setColumns.pending, (state) => {

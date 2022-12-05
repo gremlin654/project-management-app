@@ -94,10 +94,6 @@ export const Column: React.FC<IColumnProps> = ({ item }) => {
     e.preventDefault();
   }
 
-  // function dragLeaveHandler(e: React.DragEvent<HTMLDivElement>) {
-  //   throw new Error('Function not implemented.');
-  // }
-
   function dragStartHandler(
     e: React.DragEvent<HTMLDivElement>,
     item: any,
@@ -105,12 +101,7 @@ export const Column: React.FC<IColumnProps> = ({ item }) => {
   ): void {
     setCurrentBoard(item);
     setCurrentItem(task);
-    console.log('task', task);
   }
-
-  // function dragEndHandler(e: React.DragEvent<HTMLDivElement>): void {
-  //   throw new Error('Function not implemented.');
-  // }
 
   function dropHandler(e: React.DragEvent<HTMLDivElement>, item: any, task: any): void {
     e.preventDefault();

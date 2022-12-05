@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../../../utils/i18n';
 import { Button } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
@@ -13,6 +13,7 @@ export const DeleteBoard: React.FC<IDeleteProps> = ({ closeModal }) => {
   const [deleteBoardApi] = useDeleteBoardMutation();
   const { deleteBoardId } = useAppSelector((state) => state.boardsSlice);
   const dispatch = useAppDispatch();
+  const [error, setError] = useState<string>('');
   const { t } = useTranslation();
 
   const handelDeleteBoard = async () => {
@@ -21,7 +22,8 @@ export const DeleteBoard: React.FC<IDeleteProps> = ({ closeModal }) => {
       await deleteBoardApi(deleteBoardId);
       dispatch(deleteBoard(deleteBoardId));
     } catch (error) {
-      console.log(error);
+      const err = error as Error;
+      setError(err.message);
     } finally {
       dispatch(deleteBoardModal(false));
       dispatch(setSpinnerBoard(false));

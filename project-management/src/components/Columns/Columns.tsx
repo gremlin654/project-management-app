@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import './Columns.scss';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import { Button, Typography } from '@mui/material';
@@ -42,21 +42,15 @@ export const Columns: React.FC<IColumns> = ({ idBoard }) => {
     dispatch(addColumn(true));
   };
 
-  // useEffect(() => {}, [currentColumns]);
-
   function dragStartHandler(e: React.DragEvent<HTMLDivElement>, item: IAddAllColumns): void {
-    // console.log('drag', item);
     setCurrentCard(item);
   }
-
-  // function dragEndHandler(e: React.DragEvent<HTMLDivElement>): void {
-  // }
 
   function dragOverHandler(e: React.DragEvent<HTMLDivElement>): void {
     e.preventDefault();
   }
 
-  function dropHandler(e: React.DragEvent<HTMLDivElement>, item: IAddAllColumns): void {
+  const dropHandler = (e: React.DragEvent<HTMLDivElement>, item: IAddAllColumns): void => {
     e.preventDefault();
     dispatch(
       setCurrentColumns(
@@ -71,11 +65,10 @@ export const Columns: React.FC<IColumns> = ({ idBoard }) => {
         }),
       ),
     );
-
-    // dispatch(sortColumns());
-    console.log(currentColumns);
+    dispatch(sortColumns());
     dispatch(setColumns(currentColumns));
-  }
+  };
+
   return (
     <div className='columns__container'>
       <div className='columns__wrapper'>

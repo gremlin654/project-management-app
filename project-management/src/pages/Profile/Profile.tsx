@@ -36,7 +36,6 @@ export function Profile() {
   const { t } = useTranslation();
 
   useEffect(() => {
-    console.log('data', data);
     if (newName.length < 3 || !!newName.match(/[^a-zA-Zа-яА-Я]/)) {
       setNameBtn(true);
     } else {
@@ -85,7 +84,6 @@ export function Profile() {
         dispatch(setMessage(''));
       }, 9000);
     } catch (err) {
-      console.log(err);
       const errMessage = err as IError;
       dispatch(setMessage(errMessage.data.message));
       dispatch(setUnsuccessful(true));

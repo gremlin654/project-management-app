@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
 import { useAppDispatch } from 'hooks/redux';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { boardsSlice } from 'store/reducers/boardsSlice';
 import { Spinner } from 'components/Spinner/Spinner';
@@ -14,6 +14,7 @@ export const AddBoard = () => {
   const { setAddBoardModal, addBoard } = boardsSlice.actions;
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
+  const [error, setError] = useState<string>('');
 
   const [createBoard, { isLoading: loading }] = useCreateBoardMutation();
 
@@ -50,7 +51,8 @@ export const AddBoard = () => {
       const response = await createBoard(formData).unwrap();
       dispatch(addBoard(response));
     } catch (e) {
-      console.log(e);
+      const err = e as Error;
+      setError(err.message);
     }
   };
 

@@ -10,7 +10,7 @@ export const Board: React.FC<IBoardsProps> = ({ card }) => {
   const dispatch = useAppDispatch();
   const { getCurrentBoard, setDeleteBoardId, deleteBoardModal } = boardsSlice.actions;
 
-  const title = card.title ? JSON.parse(card.title) : console.log('error');
+  const title = card.title ? JSON.parse(card.title) : '';
 
   const setCurrentBoard = () => {
     dispatch(getCurrentBoard(card));

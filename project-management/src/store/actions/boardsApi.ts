@@ -315,8 +315,6 @@ export const setColumns = createAsyncThunk(
           headers,
         },
       );
-      console.log(body);
-      console.log(response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue('Failed to send columns');
