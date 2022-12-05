@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { IColumnProps } from 'models/assets';
+import { IAddAllColumns, IColumnProps } from 'models/assets';
 import { ReactComponent as Trash } from '../../assets/svg/trashcan.svg';
 import './Column.scss';
 import '../../utils/i18n';
@@ -44,7 +44,12 @@ export const Column: React.FC<IColumnProps> = ({ item }) => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
-  const tasksColumn = allTasks.filter((task) => task.columnId === _id && task.boardId === boardId);
+  const tasksColumn = allTasks.filter(
+    (task: any) => task.columnId === _id && task.boardId === boardId,
+  );
+
+  const [currentBoard, setCurrentBoard] = useState(null) as any;
+  const [currentItem, setCurrentItem] = useState(null) as any;
 
   useEffect(() => {
     const query = {
@@ -85,6 +90,37 @@ export const Column: React.FC<IColumnProps> = ({ item }) => {
     }
   };
 
+  function dragOverHandler(e: React.DragEvent<HTMLDivElement>) {
+    e.preventDefault();
+  }
+
+  // function dragLeaveHandler(e: React.DragEvent<HTMLDivElement>) {
+  //   throw new Error('Function not implemented.');
+  // }
+
+  function dragStartHandler(
+    e: React.DragEvent<HTMLDivElement>,
+    item: any,
+    task: IAddAllColumns,
+  ): void {
+    setCurrentBoard(item);
+    setCurrentItem(task);
+    console.log('task', task);
+  }
+
+  // function dragEndHandler(e: React.DragEvent<HTMLDivElement>): void {
+  //   throw new Error('Function not implemented.');
+  // }
+
+  function dropHandler(e: React.DragEvent<HTMLDivElement>, item: any, task: any): void {
+    e.preventDefault();
+    const currentIndex = tasksColumn.indexOf(currentItem);
+    tasksColumn.splice(currentIndex, 1);
+    const dropIndex = tasksColumn.indexOf(task);
+    tasksColumn.splice(dropIndex + 1, 0, currentItem);
+    setCurrentBoard();
+  }
+
   return (
     <div className='column__container'>
       <button
@@ -109,7 +145,19 @@ export const Column: React.FC<IColumnProps> = ({ item }) => {
       <div className='column__task-container'>
         <div className='column__task-wrapper'>
           {tasksColumn.map((task) => (
-            <ColumnTask key={task._id} task={task} />
+            <div
+              key={task._id}
+              //draggable={true}
+              onDragOver={(e) => {
+                dragOverHandler(e);
+              }}
+              //onDragLeave={(e) => dragLeaveHandler(e)}
+              onDragStart={(e) => dragStartHandler(e, item, task)}
+              //onDragEnd={(e) => dragEndHandler(e)}
+              onDrop={(e) => dropHandler(e, item, task)}
+            >
+              <ColumnTask key={task._id} task={task} />
+            </div>
           ))}
         </div>
       </div>

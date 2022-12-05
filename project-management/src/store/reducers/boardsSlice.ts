@@ -9,6 +9,7 @@ import {
   deleteColumn,
   deleteTask,
   getTasks,
+  setColumns,
 } from 'store/actions/boardsApi';
 
 const initialState: IBoardsInitial = {
@@ -38,6 +39,18 @@ export const boardsSlice = createSlice({
   name: 'boards',
   initialState,
   reducers: {
+    setCurrentColumns: (state, action) => {
+      state.currentColumns = action.payload;
+    },
+    sortColumns: (state) => {
+      state.currentColumns.sort((a: any, b: any) => {
+        if (a.order > b.order) {
+          return 1;
+        } else {
+          return -1;
+        }
+      });
+    },
     setAddBoardModal: (state, action: PayloadAction<boolean>) => {
       state.addBoardModal = action.payload;
     },
@@ -209,6 +222,24 @@ export const boardsSlice = createSlice({
       state.error = action.payload;
       state.isLoadingBoard = false;
       state.isDeleteTask = false;
+    });
+
+    builder.addCase(setColumns.fulfilled, (state, action: PayloadAction<IAddAllColumns[]>) => {
+      state.currentColumns = action.payload.sort((a: any, b: any) => {
+        if (a.order > b.order) {
+          return 1;
+        } else {
+          return -1;
+        }
+      });
+      state.isLoading = false;
+    });
+    builder.addCase(setColumns.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(setColumns.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
     });
   },
 });
