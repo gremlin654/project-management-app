@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { boardsSlice } from 'store/reducers/boardsSlice';
 import { Column } from 'components/Column/Column';
 import { IColumns } from 'models/assets';
-import { changeColumnTitle } from 'store/actions/boardsApi';
+import { changeColumnTitle, changeTask } from 'store/actions/boardsApi';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 
 const btnAddBoardStyle = {
@@ -33,7 +33,7 @@ const iconBtnStyle = {
 const textBtnStyle = { fontWeight: 600, fontSize: '1.4rem' };
 
 export const Columns: React.FC<IColumns> = ({ idBoard }) => {
-  const { currentColumns } = useAppSelector((state) => state.boardsSlice);
+  const { currentColumns, allTasks } = useAppSelector((state) => state.boardsSlice);
   const { addColumn } = boardsSlice.actions;
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
@@ -43,7 +43,8 @@ export const Columns: React.FC<IColumns> = ({ idBoard }) => {
   };
 
   const onDragEnd = (res: DropResult) => {
-    const { destination } = res;
+    const { source, destination } = res;
+    const taskId = res.draggableId;
     if (!destination) return;
     if (!currentColumns) return;
     if (destination.droppableId === idBoard) {
@@ -58,6 +59,22 @@ export const Columns: React.FC<IColumns> = ({ idBoard }) => {
         dispatch(changeColumnTitle(query));
         return;
       }
+    }
+
+    const colIdx = allTasks.findIndex((col) => col.columnId === source.droppableId);
+    const movedTask = allTasks.find((task) => task._id === res.draggableId);
+    if (movedTask) {
+      const data = {
+        columnId: destination.droppableId,
+        boardId: idBoard,
+        _id: movedTask._id,
+        title: movedTask.title,
+        description: movedTask.description,
+        order: destination.index + 1,
+        userId: movedTask.userId,
+        users: movedTask.users,
+      };
+      dispatch(changeTask(data));
     }
   };
 
@@ -80,7 +97,7 @@ export const Columns: React.FC<IColumns> = ({ idBoard }) => {
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                       >
-                        {<Column key={column._id} item={column} />}
+                        {<Column key={column._id} item={column} idBoard={idBoard} />}
                       </div>
                     )}
                   </Draggable>

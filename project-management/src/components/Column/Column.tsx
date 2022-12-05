@@ -11,6 +11,7 @@ import { boardsSlice } from 'store/reducers/boardsSlice';
 import { ColumnTask } from 'components/ColumnTask/ColumnTask';
 import { changeColumnTitle, getTasks } from 'store/actions/boardsApi';
 import { TitleInput } from 'components/TitleInput/TitleInput';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
 
 const btnAddTaskStyle = {
   width: '21rem',
@@ -47,9 +48,6 @@ export const Column: React.FC<IColumnProps> = ({ item }) => {
   const tasksColumn = allTasks.filter(
     (task: any) => task.columnId === _id && task.boardId === boardId,
   );
-
-  const [currentBoard, setCurrentBoard] = useState(null) as any;
-  const [currentItem, setCurrentItem] = useState(null) as any;
 
   useEffect(() => {
     const query = {
@@ -90,28 +88,6 @@ export const Column: React.FC<IColumnProps> = ({ item }) => {
     }
   };
 
-  function dragOverHandler(e: React.DragEvent<HTMLDivElement>) {
-    e.preventDefault();
-  }
-
-  function dragStartHandler(
-    e: React.DragEvent<HTMLDivElement>,
-    item: any,
-    task: IAddAllColumns,
-  ): void {
-    setCurrentBoard(item);
-    setCurrentItem(task);
-  }
-
-  function dropHandler(e: React.DragEvent<HTMLDivElement>, item: any, task: any): void {
-    e.preventDefault();
-    const currentIndex = tasksColumn.indexOf(currentItem);
-    tasksColumn.splice(currentIndex, 1);
-    const dropIndex = tasksColumn.indexOf(task);
-    tasksColumn.splice(dropIndex + 1, 0, currentItem);
-    setCurrentBoard();
-  }
-
   return (
     <div className='column__container'>
       <button
@@ -135,21 +111,26 @@ export const Column: React.FC<IColumnProps> = ({ item }) => {
       )}
       <div className='column__task-container'>
         <div className='column__task-wrapper'>
-          {tasksColumn.map((task) => (
-            <div
-              key={task._id}
-              //draggable={true}
-              onDragOver={(e) => {
-                dragOverHandler(e);
-              }}
-              //onDragLeave={(e) => dragLeaveHandler(e)}
-              onDragStart={(e) => dragStartHandler(e, item, task)}
-              //onDragEnd={(e) => dragEndHandler(e)}
-              onDrop={(e) => dropHandler(e, item, task)}
-            >
-              <ColumnTask key={task._id} task={task} />
-            </div>
-          ))}
+          <Droppable droppableId={item._id} type='TASKS'>
+            {(provided) => (
+              <div className='tasks-container' {...provided.droppableProps} ref={provided.innerRef}>
+                {tasksColumn.map((task, index) => (
+                  <Draggable key={task._id} draggableId={task._id} index={index}>
+                    {(provided) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      >
+                        {<ColumnTask key={task._id} task={task} />}
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
         </div>
       </div>
       <Button variant='contained' sx={btnAddTaskStyle} onClick={setAddTask}>

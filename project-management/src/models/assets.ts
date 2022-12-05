@@ -116,6 +116,7 @@ export type FormColumnData = {
 
 export interface IColumnProps {
   item: IAddAllColumns;
+  idBoard: string;
 }
 
 export interface IDeleteTaskQuery {
