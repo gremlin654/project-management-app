@@ -297,6 +297,42 @@ export const changeTask = createAsyncThunk(
   },
 );
 
+export const setColumns = createAsyncThunk(
+  'boards/setColumns',
+  async (currentColumns: IAddAllColumns[]) => {
+    try {
+      const headers = {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      };
+      const body = currentColumns.map((card: any) => {
+        return { _id: card._id, order: card.order };
+      });
+      // const body = {
+      //   _id: currentColumns.map((card: any) => {
+      //     return { _id: card._id };
+      //   }),
+      //   order: currentColumns.map((card: any) => {
+      //     return { order: card.order };
+      //   }),
+      // };
+      const response: AxiosResponse<IAddAllColumns[]> = await axios.patch(
+        'https://final-task-rest-production.up.railway.app/columnsSet',
+        body,
+        {
+          headers,
+        },
+      );
+      return response.data;
+      console.log(1);
+      // return response.data;
+    } catch (error) {
+      //return rejectWithValue('Failed to send data');
+      console.log('error');
+    }
+  },
+);
+
 export const {
   useGetAllBoardsQuery,
   useCreateBoardMutation,

@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Columns.scss';
 import PostAddIcon from '@mui/icons-material/PostAdd';
-import { Button, Typography } from '@mui/material';
+import { Button, cardActionAreaClasses, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import '../../utils/i18n';
 import { useTranslation } from 'react-i18next';
 import { boardsSlice } from 'store/reducers/boardsSlice';
 import { Column } from 'components/Column/Column';
-import { IColumns } from 'models/assets';
+import { IAddAllColumns, IColumns } from 'models/assets';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { setColumns } from 'store/actions/boardsApi';
 
 const btnAddBoardStyle = {
   width: '22rem',
@@ -32,18 +35,67 @@ const textBtnStyle = { fontWeight: 600, fontSize: '1.4rem' };
 
 export const Columns: React.FC<IColumns> = ({ idBoard }) => {
   const { currentColumns } = useAppSelector((state) => state.boardsSlice);
-  const { addColumn } = boardsSlice.actions;
+  const { addColumn, setCurrentColumns, sortColumns } = boardsSlice.actions;
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
+  const [currentCard, setCurrentCard] = useState(null) as any;
 
   const setAddColumn = () => {
     dispatch(addColumn(true));
   };
 
+  useEffect(() => {
+    console.log(currentColumns);
+  }, []);
+
+  function dragStartHandler(e: React.DragEvent<HTMLDivElement>, item: IAddAllColumns): void {
+    console.log('drag', item);
+    setCurrentCard(item);
+  }
+
+  // function dragEndHandler(e: React.DragEvent<HTMLDivElement>): void {
+  // }
+
+  function dragOverHandler(e: React.DragEvent<HTMLDivElement>): void {
+    e.preventDefault();
+  }
+
+  function dropHandler(e: React.DragEvent<HTMLDivElement>, item: IAddAllColumns): void {
+    e.preventDefault();
+    dispatch(
+      setCurrentColumns(
+        currentColumns.map((c: any) => {
+          if (c._id === item._id) {
+            return { ...c, order: currentCard.order };
+          }
+          if (c._id === currentCard._id) {
+            return { ...c, order: item.order };
+          }
+          return c;
+        }),
+      ),
+    );
+    dispatch(sortColumns());
+    dispatch(setColumns(currentColumns));
+    console.log(currentColumns);
+  }
   return (
     <div className='columns__container'>
       <div className='columns__wrapper'>
-        {currentColumns && currentColumns.map((item) => <Column key={item._id} item={item} />)}
+        {currentColumns &&
+          currentColumns.map((item: any) => (
+            <div
+              key={item._id}
+              draggable={true}
+              onDragStart={(e) => dragStartHandler(e, item)}
+              // onDragLeave={(e) => dragEndHandler(e)}
+              // onDragEnd={(e) => dragEndHandler(e)}
+              onDragOver={(e) => dragOverHandler(e)}
+              onDrop={(e) => dropHandler(e, item)}
+            >
+              <Column key={item._id} item={item} />
+            </div>
+          ))}
         <Button variant='contained' sx={btnAddBoardStyle} onClick={setAddColumn}>
           <PostAddIcon sx={iconBtnStyle} />
           <Typography sx={textBtnStyle}>{t('boardPage.addColumnBtn')}</Typography>
