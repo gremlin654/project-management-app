@@ -299,23 +299,15 @@ export const changeTask = createAsyncThunk(
 
 export const setColumns = createAsyncThunk(
   'boards/setColumns',
-  async (currentColumns: IAddAllColumns[]) => {
+  async (currentColumns: IAddAllColumns[], { rejectWithValue }) => {
     try {
       const headers = {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       };
-      const body = currentColumns.map((card: any) => {
+      const body = currentColumns.map((card: IAddAllColumns) => {
         return { _id: card._id, order: card.order };
       });
-      // const body = {
-      //   _id: currentColumns.map((card: any) => {
-      //     return { _id: card._id };
-      //   }),
-      //   order: currentColumns.map((card: any) => {
-      //     return { order: card.order };
-      //   }),
-      // };
       const response: AxiosResponse<IAddAllColumns[]> = await axios.patch(
         'https://final-task-rest-production.up.railway.app/columnsSet',
         body,
@@ -323,12 +315,11 @@ export const setColumns = createAsyncThunk(
           headers,
         },
       );
+      console.log(body);
+      console.log(response.data);
       return response.data;
-      console.log(1);
-      // return response.data;
     } catch (error) {
-      //return rejectWithValue('Failed to send data');
-      console.log('error');
+      return rejectWithValue('Failed to send columns');
     }
   },
 );

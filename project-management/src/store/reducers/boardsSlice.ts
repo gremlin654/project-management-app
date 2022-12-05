@@ -43,13 +43,7 @@ export const boardsSlice = createSlice({
       state.currentColumns = action.payload;
     },
     sortColumns: (state) => {
-      state.currentColumns.sort((a: any, b: any) => {
-        if (a.order > b.order) {
-          return 1;
-        } else {
-          return -1;
-        }
-      });
+      state.currentColumns.sort((a, b) => (a.order > b.order ? 1 : -1));
     },
     setAddBoardModal: (state, action: PayloadAction<boolean>) => {
       state.addBoardModal = action.payload;
@@ -104,7 +98,7 @@ export const boardsSlice = createSlice({
   },
   extraReducers(builder) {
     builder.addCase(addAllColumns.fulfilled, (state, action: PayloadAction<IAddAllColumns[]>) => {
-      state.currentColumns = action.payload;
+      state.currentColumns = action.payload.sort((a, b) => (a.order > b.order ? 1 : -1));
       state.isLoading = false;
     });
     builder.addCase(addAllColumns.pending, (state) => {
@@ -225,20 +219,14 @@ export const boardsSlice = createSlice({
     });
 
     builder.addCase(setColumns.fulfilled, (state, action: PayloadAction<IAddAllColumns[]>) => {
-      state.currentColumns = action.payload.sort((a: any, b: any) => {
-        if (a.order > b.order) {
-          return 1;
-        } else {
-          return -1;
-        }
-      });
-      state.isLoading = false;
+      state.currentColumns = state.currentColumns.sort((a, b) => (a.order > b.order ? 1 : -1));
+      state.isLoadingBoard = false;
     });
     builder.addCase(setColumns.pending, (state) => {
-      state.isLoading = true;
+      state.isLoadingBoard = true;
     });
     builder.addCase(setColumns.rejected, (state, action) => {
-      state.isLoading = false;
+      state.isLoadingBoard = false;
       state.error = action.payload;
     });
   },

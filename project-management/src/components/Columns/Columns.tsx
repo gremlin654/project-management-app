@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './Columns.scss';
 import PostAddIcon from '@mui/icons-material/PostAdd';
-import { Button, cardActionAreaClasses, Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import '../../utils/i18n';
 import { useTranslation } from 'react-i18next';
 import { boardsSlice } from 'store/reducers/boardsSlice';
 import { Column } from 'components/Column/Column';
 import { IAddAllColumns, IColumns } from 'models/assets';
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
 import { setColumns } from 'store/actions/boardsApi';
 
 const btnAddBoardStyle = {
@@ -44,12 +42,10 @@ export const Columns: React.FC<IColumns> = ({ idBoard }) => {
     dispatch(addColumn(true));
   };
 
-  useEffect(() => {
-    console.log(currentColumns);
-  }, []);
+  // useEffect(() => {}, [currentColumns]);
 
   function dragStartHandler(e: React.DragEvent<HTMLDivElement>, item: IAddAllColumns): void {
-    console.log('drag', item);
+    // console.log('drag', item);
     setCurrentCard(item);
   }
 
@@ -64,7 +60,7 @@ export const Columns: React.FC<IColumns> = ({ idBoard }) => {
     e.preventDefault();
     dispatch(
       setCurrentColumns(
-        currentColumns.map((c: any) => {
+        currentColumns.map((c: IAddAllColumns) => {
           if (c._id === item._id) {
             return { ...c, order: currentCard.order };
           }
@@ -75,15 +71,16 @@ export const Columns: React.FC<IColumns> = ({ idBoard }) => {
         }),
       ),
     );
-    dispatch(sortColumns());
-    dispatch(setColumns(currentColumns));
+
+    // dispatch(sortColumns());
     console.log(currentColumns);
+    dispatch(setColumns(currentColumns));
   }
   return (
     <div className='columns__container'>
       <div className='columns__wrapper'>
         {currentColumns &&
-          currentColumns.map((item: any) => (
+          currentColumns.map((item: IAddAllColumns) => (
             <div
               key={item._id}
               draggable={true}
