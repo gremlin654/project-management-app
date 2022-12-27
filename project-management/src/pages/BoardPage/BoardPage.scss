@@ -1,0 +1,31 @@
+.board-page {
+  &__container {
+    position: relative;
+    flex: 1 0 auto;
+    margin: 2rem 0;
+    padding-left: 16px;
+    padding-right: 16px;
+    @media (min-width: 600px) {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+  }
+  &__title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  &__title {
+    font-family: 'Circular-Bold';
+    font-size: 4rem;
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 2rem;
+  }
+  &__description {
+    font-family: 'Circular-Medium';
+    font-size: 1.8rem;
+    line-height: 3rem;
+    text-align: center;
+  }
+}

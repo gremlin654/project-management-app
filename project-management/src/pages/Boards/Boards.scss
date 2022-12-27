@@ -1,0 +1,46 @@
+.boards {
+  display: flex;
+  justify-content: center;
+  flex: 1 0 auto;
+  padding: 2rem 2.4rem;
+
+  &__title {
+    font-family: 'Circular-Bold';
+    font-size: 4rem;
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 2rem;
+  }
+}
+.board {
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+  }
+  &__container {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    @media (min-width: 288px) {
+      width: 240px;
+    }
+    @media (min-width: 543px) {
+      width: 495px;
+    }
+    @media (min-width: 798px) {
+      width: 750px;
+    }
+    @media (min-width: 1053px) {
+      width: 1005px;
+    }
+    @media (min-width: 1308px) {
+      width: 1260px;
+    }
+    @media (min-width: 1563px) {
+      width: 1515px;
+    }
+    @media (min-width: 1818px) {
+      width: 1770px;
+    }
+  }
+}

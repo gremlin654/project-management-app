@@ -1,0 +1,109 @@
+.column {
+  &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    width: 23rem;
+    padding: 2.5rem 1rem 1rem;
+    background-color: #9c9c9c;
+    border-radius: 0.7rem;
+    gap: 1.7rem;
+    height: fit-content;
+    cursor: grab;
+  }
+  &__delete-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    width: 2.4rem;
+    height: 2.4rem;
+    background: transparent;
+    transition: all 0.3s;
+    border-radius: 50%;
+    &:hover {
+      transition: all 0.3s;
+      background: rgba(255, 255, 255, 0.49);
+    }
+    &.disabled {
+      display: none;
+    }
+  }
+  &__input-container {
+    position: relative;
+  }
+  &__input {
+    height: 3.2rem;
+    width: 100%;
+    font-size: 2.5rem;
+    font-family: 'Circular-Medium';
+    padding-right: 6rem;
+  }
+  &__input-btn-true {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0.5rem;
+    right: 3rem;
+    width: 2.2rem;
+    height: 2.2rem;
+    font-size: 2.7rem;
+    background: transparent;
+    &:hover {
+      transition: all 0.3s;
+      color: #a3ca01;
+    }
+  }
+  &__input-btn-false {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 2.2rem;
+    height: 2.2rem;
+    font-size: 2.3rem;
+    background: transparent;
+    &:hover {
+      transition: all 0.3s;
+      color: red;
+    }
+  }
+  &__task-length {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    background: #a3ca01;
+    border-radius: 50%;
+    font-family: 'Circular-Medium';
+    font-size: 1.6rem;
+    top: -1rem;
+    left: 1rem;
+    color: #000000;
+  }
+  &__title {
+    height: 3.2rem;
+    width: 100%;
+    font-family: 'Circular-Bold';
+    font-size: 2.5rem;
+    color: aliceblue;
+  }
+  &__task-container {
+    min-height: 4rem;
+    max-height: 13.4rem;
+    overflow-x: auto;
+  }
+  &__task-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+}

@@ -1,0 +1,47 @@
+.board {
+  position: relative;
+  border: 0.15rem solid rgba(18, 0, 97, 0.171);
+  border-radius: 1.1rem;
+  width: 24rem;
+  height: 18rem;
+  background-color: rgba(18, 0, 97, 0.171);
+  padding: 2.5rem;
+
+  &__link {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+  &__title {
+    font-family: 'Circular-Book';
+    font-size: 2.5rem;
+    color: aliceblue;
+    word-wrap: break-word;
+  }
+  &__description {
+    font-family: 'Circular-Book';
+    font-size: 2rem;
+    color: rgb(193, 215, 235);
+    max-width: 18.8rem;
+    word-wrap: break-word;
+  }
+  &__trash {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    width: 2.6rem;
+    height: 2.6rem;
+    background: transparent;
+    transition: all 0.3s;
+    border-radius: 50%;
+    &:hover {
+      transition: all 0.3s;
+      background: rgb(255 255 255 / 49%);
+    }
+  }
+}

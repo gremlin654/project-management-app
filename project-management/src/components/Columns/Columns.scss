@@ -1,0 +1,14 @@
+.columns {
+  &__container {
+    display: flex;
+    height: calc(100vh - 310px);
+    overflow: auto;
+  }
+  &__wrapper {
+    height: 315px;
+    display: flex;
+    gap: 1rem;
+    min-height: 20rem;
+    padding: 2rem;
+  }
+}
